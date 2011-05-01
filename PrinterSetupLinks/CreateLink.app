@@ -1,0 +1,1 @@
+../ExampleFiles/Handy Droplets/PrinterLinkDroplet/PrinterSetupLinkDroplet_Symbolic_Link.app

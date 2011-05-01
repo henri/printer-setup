@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# GNU GPL Copyright Henri Shustak 2006
+#
+# Simple Script can be run after Radmind, but before a reboot.
+# 
+# This script will restart cups, which an important step if you have used
+# Radmind to manage the cupsd.conf file on the local system. Then it will
+# run PrinterSetup. This allows printer setup to manage the printers
+# rather than relying on radmind to create the printers. 
+# 
+# The result is that you may not require as many command files, if you use
+# PrinterSetup to manage the printers. A single command file can conrol printing 
+# for your orgonisation.
+#
+#
+
+echo %86
+# Setup Printers
+echo "Configuring Printers..."
+#killall -HUP -u root -s -c cupsd
+killall -HUP -u root -c cupsd
+sleep 3
+/bin/bash "/Library/Tech Scripts/PrinterSetup/PrinterSetup.sh" > /dev/null
+
+exit 0

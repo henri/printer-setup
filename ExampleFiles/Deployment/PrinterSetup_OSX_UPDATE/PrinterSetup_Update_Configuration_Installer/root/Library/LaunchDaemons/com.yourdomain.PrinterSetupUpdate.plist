@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.yourdomain.PrinterSetupUpdate</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/var/printersetup/run/run_configuraion.bash</string>
+		<string>printersetup-update-server.yourdomain.com</string>
+	</array>
+	<key>QueueDirectories</key>
+	<array/>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Hour</key>
+		<integer>0</integer>
+		<key>Minute</key>
+		<integer>0</integer>
+	</dict>
+	<key>StartInterval</key>
+	<integer>86400</integer>
+	<key>WatchPaths</key>
+	<array/>
+</dict>
+</plist>

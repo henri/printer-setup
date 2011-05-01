@@ -1,0 +1,1 @@
+./ExampleFiles/Handy Scripts/RunPrinterSetup/RunPrinterSetup_Symbolic_Link.app

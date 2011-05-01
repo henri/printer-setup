@@ -1,0 +1,2 @@
+printer_setup.log
+ExampleFiles/Deployment/PrinterSetup_OSX_SYNC/configurations

@@ -1,0 +1,99 @@
+#!/bin/bash
+
+#
+# Script is licenced under the GNU GPL 
+# ©Copyright 2007 Henri Shustak
+# Lucid Information Systems
+# http://www.lucidsystems.org
+#
+
+# Simply enables/starts all local print queues.
+# Useful for Clearing out any problems
+
+
+# Version 0.3 Improved Cross Platform Support
+
+# Check we are running as root
+currentUser=`whoami`
+if [ $currentUser != "root" ] ; then
+	echo This script must be run with super user privileges
+	exit -127
+fi
+
+# Set a some varibles
+totalrun=0
+printer_name=""
+
+# Use the correct version of md5
+host_os=`uname`
+if [ "${host_os}" == "Linux" ] ; then
+	MD5=md5sum
+else
+	MD5=md5
+fi
+
+# Setup Temp File Path
+tempfile=/tmp/printerlist-`date | $MD5 | awk '{print $1}'`.txt
+
+
+function cleanexit {
+    rm $tempfile
+    exit 0  
+}
+
+
+function generate_printer_list {
+    # Generate printerlist tempfile
+    # The Grep at the end will mean we only process only the local printers
+    
+    # Old version of cups
+    #/bin/cat /etc/printcap | grep -v '^#' | cut -d'|' -f1 | grep -v -e "@" > "$tempfile"
+    /usr/bin/lpstat -p 2> /dev/null | cut -d' ' -f2 | grep -v -e "@" > "$tempfile"
+    
+    if [ $? != 0 ] ; then
+        echo "ERROR! : Generating printer list"
+        exit 0
+    fi
+}
+
+
+
+# Enable all the printers
+function enable_printer {
+
+    lpadmin -p $printer_name -E  > /dev/null 2>&1
+    if [ $? != 0 ] ; then
+        logger -s -p user.info "ERROR! : Enabling printer :$printer_name"
+    fi
+
+}
+
+
+
+# Read List of Printers
+function process_printer_list {
+    exec < $tempfile
+    a1="start_of_file_no_printer_should_ever_be_called_this.......!"
+    while [ "" == "" ] ; do
+            read a1 
+            (( totalrun++ ))	            
+            if [ "$a1" != "" ] ; then
+            
+                # Get the Current PrintName
+                printer_name="$a1"
+            else
+                # Stop Processing File 
+                # ( if you find an empty line )
+                break
+            fi
+            enable_printer
+    done
+}
+
+generate_printer_list
+process_printer_list
+
+cleanexit
+exit 0
+
+

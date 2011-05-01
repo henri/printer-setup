@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Copyright 2006 Henri Shustak GNU GPL v2
+# Lucid Information Systems
+# http://www.lucidsystms.org
+
+# This is a simple script which nices the printer setup process and passes the 
+# first argument along to printer setup. This is useful if you are running
+# printer-setup during login. It will not hog the CPU, and will still 
+# complete quickly.
+
+
+sleep 10
+/usr/bin/nice -n +15 "/Library/Tech Scripts/PrinterSetup/PrinterSetup.sh" ${1} &
+
+exit 0
+

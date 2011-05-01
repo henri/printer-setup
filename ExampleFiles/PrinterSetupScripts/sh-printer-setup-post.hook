@@ -1,0 +1,39 @@
+#!/bin/bash
+
+##########################################################################
+##							      		                                ##
+## 	Post Printer Setup  					 	                        ## 
+##	Posts things back as they were				  			            ##
+##									                                    ##
+##	Copyright Henri Shustak 2006						                ##
+##	This Script is Released under the GNU GPL License		            ##
+## 																		##
+##  v0003																##
+##																		##
+##									                                    ##
+##########################################################################
+
+function remove_link {
+
+    if [ -f "${link_to_remove}" ] ; then
+        rm "${link_to_remove}"
+    fi
+
+}
+
+
+# Just follow the recipe below to remove any links which may need to be removed for the next run.
+# This example is for a school with separate printer lists for staff and students.
+# You could just reserve the number 501 and then nuke them all. Either way.....
+
+link_to_remove="${printer_setup_links_folder}/PLF-${roomNumber}-Student-501"
+remove_link
+
+
+link_to_remove="${printer_setup_links_folder}/PLF-${roomNumber}-Staff-501"
+remove_link
+
+
+
+exit 0
+

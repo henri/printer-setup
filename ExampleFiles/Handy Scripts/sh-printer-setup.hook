@@ -1,0 +1,182 @@
+#!/bin/bash
+
+##########################################################################
+##							      		                                ##
+## 	Setup Printers Links (example pre-script)					 	    ## 
+##	Sets up Printer Links Based Upon the Location  			            ##
+##  																	##
+##  This script has been expanded to also stop the printer setup		##
+##  system, so that no changes are made to the systm.  This allows 		##
+##  the deployment of printer setup onto many machines while only 		##
+##  activating the system as and when required.							##
+##									                                    ##
+##	This script also where the call to delete all current				##
+##  printers on the system occours.										##
+##																		##	
+##																		##
+##	Copyright Henri Shustak 2006						                ##
+##	This Script is Released under the GNU GPL License		            ##
+## 	Lucid Inforamtion Systems                                           ##
+##  http://www.lucidsystems.org											##
+## 																		##
+##  v0005																##
+##	Requires Printer Setup v0010 or Greater								##
+##									                                    ##
+##########################################################################
+
+
+roomNumber="${roomNumber}"
+assetName="${assetName}"
+delete_current_printers="YES"
+continue_with_printer_setup="NO"
+check_group_staff_student="NO"
+staff_group_name="Staff Users"
+
+# Return values to control what will happen
+PRINTERSETUP_CONTINUE=${PRINTERSETUP_CONTINUE}
+PRINTERSETUP_STOP=${PRINTERSETUP_STOP}
+
+# Asset Number
+assetNumber=`echo "$assetName" | awk 'BEGIN { FS = "-" } ; { print $2 }'`
+
+# This is the Building and the Level ie {first floor 101, second floor 201 etc}
+firstThree=`echo "$roomNumber" | cut -c -3`
+
+printer_list=""
+printer_list_link=""
+printer_link_type="Undefined"
+
+remove_printer_script="${printer_setup_folder}/ExampleFiles/Handy Scripts/sh-remove-printers.hook"
+
+
+
+#---------------------------------------------------#
+#     Machines by two letter code plus 1 digit      #
+#---------------------------------------------------#
+
+case $firstThree in
+ 
+        # Second Level of Finance
+        #"FN2" ) printer_list="FN2XX-Staff";printer_link_type="FN2XX";continue_with_printer_setup="YES";;
+         
+esac
+
+
+
+#---------------------------------------------------#
+###########     Machines by Room Number    ##########
+#---------------------------------------------------#
+
+case $roomNumber in
+
+
+	#"SCIENCEOFFICE"	       ) continue_with_printer_setup="YES";;
+	#"WORKSHOP"             ) continue_with_printer_setup="YES";delete_current_printers="NO";;
+    #"STUDENTSUPPORT"       ) continue_with_printer_setup="YES";check_group_staff_student="YES";;
+    
+        
+esac
+
+
+
+#####################################################
+##   Check for Individual Machine Configurations   ##
+#####################################################
+#
+#  These settings enable and disbale printing for this machine
+#
+
+
+#---------------------------------------------------#
+###########     Machines by Asset Number    ##########
+#---------------------------------------------------#
+
+case $assetNumber in
+
+	#================== HelpDesk ================#
+	#"0673" ) printer_list="SMC Helpdesk";printer_link_type="HelpDesk";continue_with_printer_setup="YES";;
+	
+	               
+esac
+
+
+#---------------------------------------------------#
+#########    Machines by Full Asset Name    ##########
+#---------------------------------------------------#
+
+case $assetName in
+
+    #================== ArtPrefab ================#
+    # This is the InkJet Printer
+	#"ARTBLOCK-0885" ) continue_with_printer_setup="NO";;
+	#"ARTBLOCK-1145" ) continue_with_printer_setup="YES";delete_current_printers="NO";;
+        
+esac
+
+
+
+#####################################
+##       Setup Printer Links       ##
+#####################################
+
+
+# should the printer setup continue
+if [ "${continue_with_printer_setup}" != "YES" ] ; then
+	exit $PRINTERSETUP_STOP
+fi
+
+
+
+# Check for Group Staff Printing Setup, Otherwise use Studnet Setup
+if [ "${check_group_staff_student}" == "YES" ] && [ "${user_to_set_default_printer_for}" != "" ] ; then
+    
+    staff_group_check=`id -Gn "${user_to_set_default_printer_for}" | grep -ow "${staff_group_name}"`
+    
+    if [ "${staff_group_check}" == "${staff_group_name}" ] ; then
+        printer_list="${roomNumber}-Staff"
+        printer_link_type="Staff"
+    else
+        printer_list="${roomNumber}-Student"
+        printer_link_type="Student"
+    fi
+fi
+
+
+
+# Remove old printers
+if [ "${delete_current_printers}" == "YES" ] ; then
+
+    echo "Removing Current Printers..."
+
+	"${remove_printer_script}" >> /dev/null
+    "${remove_printer_script}" >> /dev/null
+	sleep 2
+    "${remove_printer_script}" >> /dev/null
+    "${remove_printer_script}" >> /dev/null
+	
+	
+fi
+
+
+# If the printer list folder is available.
+if [ -f "${printer_list_folder}/${printer_list}" ] ; then
+
+    # Set Settings
+    printer_list_link="PLF-${roomNumber}-${printer_link_type}-501"
+
+	# If the printer link is not already in place
+ 	if ! [ -f "${printer_setup_links_folder}/${printer_list_link}" ] ; then
+ 	
+ 		# Create the Link
+ 		ln -s "${printer_list_folder}/${printer_list}" "${printer_setup_links_folder}/${printer_list_link}"
+ 	
+ 	fi
+fi
+
+
+
+
+
+
+exit $PRINTERSETUP_CONTINUE
+

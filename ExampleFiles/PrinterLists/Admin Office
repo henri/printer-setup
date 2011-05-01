@@ -1,0 +1,18 @@
+# This is a Printer List File. 
+# This file is intended for use with PrinterSetup : 
+# http://www.lucidsystems.org/printingworks/printersetup
+# 
+# Printer List File v0004
+#
+# Note : The File name must exactly match the name of the printer in the
+#        PrinterSetupFiles folder. Also all comments must be at the 
+#        start of the line. Always add a return at the end of the list.
+#
+#	 v0003 supports default printers, these configuration files are not
+#        compatible with previous versions of printer setup.
+#        A default printer is defined by a tab and a "*" following the name
+#        of the printer. Only PSF are currently supported for the default
+#        as default printers.
+ 
+Big Ben Color	*
+

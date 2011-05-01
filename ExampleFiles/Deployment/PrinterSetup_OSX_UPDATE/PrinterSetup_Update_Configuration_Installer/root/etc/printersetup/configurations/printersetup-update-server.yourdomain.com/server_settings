@@ -1,0 +1,28 @@
+# This is a Printer Setup Update : Configuration File
+# Copyright 2008 Henri Shustak GNU GPLv2
+# 
+# Lucid Information Systems
+# http://www.lucidsystems.org
+# 
+# Printer Setup Update File Version v0001
+#
+#
+# It is important that there are tabs inserted after the colon.
+# This version of the parsing system has an issue which means that
+# you can only have a few tabs. In addition no spaces may be specified.
+# 
+# Also note that currently comments can only be at the start of a line
+# 
+# Printer Setup Update Settings Notes :
+#      	Remote Port : 	Should only contain an integer value.
+# 	Remote User : 	Should only contain alpha numeric numbers.
+# 	Remote Path : 	Should not contain any spaces in the name.
+#       Name Prefix : 	Keep it short descriptive and with out spaces.
+#
+#       This file should have the file name : server_settings
+
+Remote User : 	printersetup
+Remote Path : 	/Users/printersetupupdate/PrinterSetup-Student
+Remote Port : 	22
+Name Prefix : 	PRINTERSETUP_your_institution_name
+

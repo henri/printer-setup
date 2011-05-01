@@ -1,0 +1,47 @@
+#!/bin/bash
+
+##########################################################################
+##							      		                                ##
+## 	Post Printer Setup (exmaple post script)		 	                ## 
+##	Posts things back as they were				  			            ##
+##									                                    ##
+##	Copyright Henri Shustak 2006						                ##
+##	This Script is Released under the GNU GPL License		            ##
+## 																		##
+##  v0002																##
+##																		##
+##									                                    ##
+##########################################################################
+
+function remove_link {
+
+    if [ -f "${link_to_remove}" ] ; then
+        rm "${link_to_remove}"
+    fi
+
+}
+
+
+link_to_remove="/Library/Tech Scripts/PrinterSetup/PrinterSetupLinks/PLF-${roomNumber}-MM2XX-501"
+
+remove_link
+
+
+link_to_remove="/Library/Tech Scripts/PrinterSetup/PrinterSetupLinks/PLF-${roomNumber}-HelpDesk-501"
+
+remove_link
+
+
+link_to_remove="/Library/Tech Scripts/PrinterSetup/PrinterSetupLinks/PLF-${roomNumber}-Student-501"
+
+remove_link
+
+
+link_to_remove="/Library/Tech Scripts/PrinterSetup/PrinterSetupLinks/PLF-${roomNumber}-Staff-501"
+
+remove_link
+
+
+
+exit 0
+

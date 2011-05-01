@@ -1,0 +1,500 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf250
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 TimesNewRomanPSMT;\f2\fnil\fcharset0 LucidaGrande;
+\f3\fnil\fcharset0 AndaleMono;\f4\fmodern\fcharset0 CourierNewPSMT;}
+{\colortbl;\red255\green255\blue255;\red91\green91\blue91;\red51\green51\blue51;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww14380\viewh14240\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1720\fi-1720\ql\qnatural\pardirnatural
+
+\f0\fs40 \cf0 Printer Setup Documentation :\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\fs24 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li840\ql\qnatural\pardirnatural
+
+\f1\b\fs28 \cf0        
+\fs34  
+\fs28 \cf2 Website\cf0   	:
+\fs34  	http://www.lucidsystems.org/printingworks/printersetup\
+
+\fs28 \
+\cf2  Mailing Lists\cf0 	 	: 	http://lists.connect.homeunix.com/listinfo/printersetup-discussion\
+                        	  	http://lists.connect.homeunix.com/listinfo/printersetup-announce\
+
+\f0\b0\fs24 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Introduction : \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 Printer setup is a printer management system designed for use in conjunction with RADmind. Although Radmind is not essential for Printer Setup to operate, it is highly recommended, particularly  when you pushing out (actually pulling if you understand RADmind) printer configuration changes. This task can also be performed manually or with tools such as SSH or Apple Remote Desktop, however the process is by no means as manageable.\
+\
+Printer Setup is designed to simplify the management of printers on a small to medium sized network. It has been designed with the goal of keeping printer deployment feasible as the network grows in size you add more printers to the network, or as many system administrators who are not not already using printer setup dread a printer being moved from one place to another. Possibly on a remote site, which you also manage.\
+\
+PrinterSetup is a GNU GPL component of 
+\i\b PrinterWorks
+\i0\b0  the open source print accounting system from Lucid Information Systems. For further information on assistance with the deployment of  
+\i\b PrinterWorks
+\i0\b0  visit \
+http://www.lucidsystems.org\
+\
+It is  recommended that you view the PrinterSetup screen casts web page to gain a  overview of how to use PrinterSetup. The PrinterSetup screen casts web page is available at the following URL : \
+http://www.lucidsystems.org/printingworks/printersetup/screencasts\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Conventions : 
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 As you familiarize  yourself with the PrinterSetup project and this documentation you will notice various references to listings which look identical to absolute paths. If such an absolute path is not available, then it is extremely likely, that the PrinterSetup root directory is being referenced, rather than an absolute path. \
+\
+The PrinterSetup root directory, is  the directory which contains all of the folders and files associated with the PrinterSetup project instance. It is the directory which is unzipped once you have downloaded PrinterSetup.\
+\
+If you have any suggestions on how to make this referencing make more sense, then ideas are welcome.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 System Compatibility : 
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 Printer Setup is developed on Mac OSX for Mac OSX. \
+\
+However there is absolutely no reason why it could not be modified to work on any *INX based system. Many PrinterSetup features have been verified to work on various versions of Debian and Ubuntu. if you are using PrinterSetup on an other platform then please let us know.\
+\
+Once the system becomes less of a development project and the code is ported to python / ruby (future plans) it is quite likely that the system could work on Microsoft Windows. Until then, Windows support is only available via a batch file export from PrinterSetup. If you are a Microsoft Windows developer, then please consider working with us to improve the  Microsoft Windows PrinterSetup support. The batch file export has been verified to work on both XP, Vista. If you are having any issues then let us know.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Installation : 
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 Place the Printer Setup Folder into a folder with permissions set so that only root is able to read, execute or write. \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2840\ql\qnatural\pardirnatural
+
+\i \cf0 Because you will likely be running PrinterSetup.sh as root this is an important security measure. PrinterSetup.sh is programed to execute binary files, this means that if a malicious user has write access into certain subdirectories, they can install malicious code which can literally do anything to your system.
+\i0 \
+\
+
+\i If you would like to be ultra paranoid then consider disabling script execution in the PrinterSetup.sh script. There is a option in the settings area.
+\i0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 \
+You may optionally edit the configuration section of the PrinterSetup.sh file, so the system knows where the various sub-components are located. This was a requirement of previous systems, this version will work correctly, so long as the script is called using the absolute path.\
+\
+Screen casts explaining installation of printer setup are available from the the PrinterSetup website : \
+http://www.lucidsystems.org/printersetup\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Operating System Specific Options : 
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 If you are running PrinterSetup on a system other than Mac OS X then you may need to adjust the 
+\i create_printer_script
+\i0  variable within the PrinterSetup.sh script so that the correct create printer script is called for your operating system. \
+\
+It is expected that this will be automated in a future release. However, if you have special calls or a special version of lpadmin which requires different command line flags then changing this variable will allow you to create a different create printer script to handle these differences. \
+\
+If you have coded the OS detection functionality or if you have created create printer scripts for an operating system which is not included with PrinterSetup, then we encourage you to submit these patches to : \
+http://www.lucidsystems.org\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Folder Definitions : 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 PrinterSetupScripts is a folder that contains scripts (PSS), each of which setup a single printer.\
+\
+PrinterSetupFiles  is a folder containing files (PSF), each of which contain information to setup a single printer.\
+\
+PrinterLists is a folder containing files (PLF) which are a list of\
+printers, these names must match a PSF in the PrinterSetupScrtips folder or a PSS in the PrinterSetupScripts folder. This is also where the default printer is defined. \
+\
+PrinterListScripts is a folder containing scripts (PLS), which can generate PLF's, or generate links.\
+\
+PrinterSetupLinks is a folder that contains links to PSS's, PSF's, PLF's and PSS's. Symbolic links with special names are used to control which printers are setup on which machine. \
+\
+PPDs, although this folder is not created by default, you may create this folder and store PPD's within this folder. This allows you to enter just the PPD name in the PSF rather than the absolute path.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Basic Usage : 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 Add a hook that points to PrinterSetup.sh. This hook can be triggered at login, logout, reboot, shutdown, startup, re-image, or re-radmind. I leave these decisions to you.\
+\
+In addition you will need to setup PSS's, PSF's, PLF's, PLS's and any required links to these files.\
+\
+By default PrinterSetup will only activate PrinterSetup Links with the following file names.\
+\
+	PLF-
+\i ROOMNUMBER
+\i0 \
+	PSF-
+\i ROOMNUMBER
+\i0 \
+	PSS-
+\i ROOMNUMBER
+\i0 \
+	PLS-
+\i ROOMNUMBER
+\i0 \
+\
+This behavior can be changed within the logic section of the PrinterSetup.sh script. By Default the 
+\i ROOMNUMBER
+\i0  is retrieved from NVRAM. Depending upon your setup, you may wish to change the way this works.\
+\
+The 
+\i ROOMNUMBER
+\i0  is the first part of a variable called "asset-name". The "asset-name" is separated into sections by\
+the "-" character. \
+\
+You can set this variable, using the following command :\
+\
+	
+\f3 nvram asset-name=ADMIN4-003783
+\f0 \
+\
+This would mean the ROOMNUMBER would be "ADMIN4"\
+Then to execute a printer list file you would name the link placed into PrinterSetupLinks :\
+\
+	PLF-ADMIN4.\
+\
+You may prefer to use text files or a database to manage such settings. The choice is open to you, to decide. If you make such changes, please submit the changes back so everyone can benefit from these patches. It is best if the are submitted as separate utilities.\
+\
+Below are some examples of command line options which are available.\
+\
+	
+\f3 PrinterSetup.sh -s OFF	 
+\f0\b   
+\b0 \
+(disables the scripting subsystem)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f3 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 	
+\f3 PrinterSetup.sh -s ON	  
+\f0 \
+(enables the scripting subsystem)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f3 \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 	
+\f3 PrinterSetup.sh -a TESTMACHINE-0000\
+
+\f0 (overrides the machines asset-name in NVRAM with 
+\f3 TESTMACHINE-0000
+\f0 )\
+\
+	
+\f3 PrinterSetup.sh -n SITE1	  
+\f0 \
+(prefixes the printer name with "SITE1-")\
+\
+	
+\f3 PrinterSetup.sh -l SITE1	  
+\f0 \
+(prefixes the printer location with "SITE1-")\
+\
+	
+\f3 PrinterSetup.sh -d SITE1	  
+\f0 \
+(prefixes the printer location with "SITE1-")\
+\
+	
+\f3 PrinterSetup.sh -t	  
+\f0 \
+(instructs printer setup to create a temporary file structure and additional variables for post processing)\
+\
+	
+\f3 PrinterSetup.sh -x -n SITE1  
+\f0 \
+(instructs printer setup to delete any queue which is disabled and which also has a queue name \
+starting with "SITE1-". The "-x" option will not work without the "-n" option, which is used to set the queue \
+name prefix. Also, the "-x" option implicitly implies and activates the "-t" option. This is because currently\
+PrinterSetup uses the temporary storage system when calculating which queues should be removed\
+from the system) PrinterSetup includes a "Handy Script", which will be handy should you wish to remove queues with a certain queue name prefix.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Advanced Usage : \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 There are various more advanced deployment methods for PrinterSetup .\
+\
+To get a taste of these deployment methods firstly take a look at the screen casts page available from the following URL :  http://www.lucidsystems.org/printingworks/printersetup/screencasts\
+\
+Next have a peek within the "/ExampleFiles/Deployment" directory.\
+\
+You will notice that the advanced usage is presently geared towards Mac OS X systems. This is simply, because more time has been spent deploying advanced deployment options for Mac OS X. If you are deploying PrinterSetup in an interesting way then please let us know. Regardless of the operating system you are deploying PrinterSetup, we are going to be interested.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Specifying Default Printers : 
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 You can specify the cups name of a printer within the PSL as the default printer even if there is no associated PSF for the printer. This provides an easy way to specify that a USB printer as the default printer for the system or user.\
+\
+Default printers are specified in the PSL. The default printer has an tab followed by an Asterisk (*) after the PSF or cups name.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Making it Work : 
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2280\ql\qnatural\pardirnatural
+\cf0 You will need to decided how you will start the PrinterSetup so that printers are created. This operation can be automatic or manual.\
+\
+ Below are a list of some common automatic methods.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi600\ql\qnatural\pardirnatural
+
+\i \cf0 \
+radmind cleanup script\
+login hook\
+startup item\
+launchd\
+built-in update system (launchd is the underlying technology)
+\i0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 \
+If you are familiar with these systems, then you should have only few problems getting it all working automatically. \
+\
+However, if you have never heard of these systems, let alone used them in a production environment, then take a look at these systems as they are worth learning about.\
+\
+If you just want to get going with a login hook then look at an application called : LoginWindow manager. This application offers GUI for setting up login hooks  :  http://www.bombich.com/software/lwm.html\
+\
+If you want to get going with launchd then look at :\
+http://lingon.sourceforge.net/\
+or\
+http://www.codepoetry.net/products/launchdeditor\
+\
+Because PrinterSetup is quite slow, if you are going to attach the system to a login script consider using a modified version of the "sh-initiate.hook"found in the "ExampleFiles" folder. This script will nice the process and send it into the background, so that login is still snappy. The disadvantage is that printers may not be immediately available.\
+\
+If you are using PrinterSetup in conjunction with Radmind then it is advisable to look at the '
+\f2 sh-radmind-printer-cleanup.hook' script, located within the ExampleScripts folder. If you are managing the cupsd.conf file with Radmind, then restating cupsd before adding printers\
+will stop lpadmin (a dependency of PrinterSetup under OSX) from hanging.\
+\
+If you are using RADmind to manage the /etc/cups directory then it is advisable to run PrinterSetup after rebooting the machine.\
+
+\f0 \
+In some environments you may want to make changes to the\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f4\fs18 \cf3 ~/Library/Preferences/com.apple.print.PrintingPrefs.plist
+\f0\fs24 \cf0 \
+Under OS X this file controls weather the default printer is the last printer printed to or not. Setting this option to false is desirable in some situations. \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 PPDs : 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 If you specify a PPD within a printer setup file (PSF), it must be specified either as an absolute path. If the PPD is specified only by name then a folder or symbolic link called "PPDs" in the root of the printer setup directory will be checked for a file with a name matching that specified in the PSF. \
+\
+There are two reserved PPD words "RAW" and "raw" if you enter either of these words as the PPD then a raw CUPS print queue will be generated.\
+\
+Some PPD's require additional files to operate please ensure that these files have been installed.\
+\
+Finally, it is important that PPD's are not compressed.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Paper Sizes : 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 If you specify a paper size within a printer setup file (PSF) the paper size will only be enabled if it is supported by the PPD of the printer. If it is not supported no error will be reported. Instead it will simply not alter the paper size settings. \
+\
+If you do not specify a paper size within the PSF then it will simply not configure the printer queue paper size.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Cups Printer Publishing / Sharing : 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 The PSF may specify whether the print queue publishing should be enabled or not. This is a per print queue configuration option and will not start or stop any operating system services. You may specify that the print queue is either published by stating "YES" or not published by stating "NO".\
+\
+An example PSF  called "
+\f2 Aunt Betty Published"
+\f0  is provided within the "ExampleFiles/
+\f2 PrinterSetupFiles/" directory. This PSF has publishing enabled as it uses the "YES" option.\
+\
+If a PSF file dose not specify any option then the publishing for this queue will be disabled by default. However, there is a command line flag which will override any settings specified within the PSF's.
+\f0 \
+\
+	
+\f3 PrinterSetup.sh -p YES\
+
+\f0 	(overrides the PSF settings and will enable publishing for all queues which are generated or modified)\
+\
+	
+\f3 PrinterSetup.sh -p NO\
+
+\f0 	(overrides the PSF settings and will disable publishing for all queues which are generated or modified)\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 SimplePrint CSV conversion scripts: 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 The CSV conversion scripts allow quick conversion between SimplePrint CSV files and PrinterSetup Files. It is recommended that you open these scripts up and examine them to determine how they work. If you require assistance with using these conversion tools, then please contact the development team and we will publish a screen cast covering the basics of their use.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 importing current CUPS configuration into PrinterSetup: \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 There is a "Handy Script" which is able to generate PSF (PrinterSetup files) from the CUPS configuration. \
+If you are running Mac OS X then it is as simple as running following AppleScript : \
+"/ExampleFiles/Handy Scripts/ImportFromCUPS/ImportFromCUPS_Symbolic_Link.app"\
+\
+If you are running another *NIX based operating system, then this feature is still supported. However, you will need to consult the following ReadMe file : "/ExampleFiles/ImportExport/CUPS/README.txt" for further details.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Creating packages which set up printers: 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 There Folder "Deployment" within the "ExampleFiles" folder \
+contains instructions and an example package maker file and helper scripts to aid with your creation of deployable PrinterSetup install packages, which will allow quick installation of print drivers and queues. This deployment system supports the installation of additional Apple installer packages. This provides an option when you want to not only configure queues but also install printer drivers or additional printing utilities such as PrintAgent.
+\f2 \
+
+\f0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Creating symbolic links in the PrinterSetupLinks directory :
+\i\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\i0 \cf0 In the 'PrinterSetupLinks' directory you will find some handy web links and a symbolic link to an AppleScript droplet called 'CreateLink'. The 'CreateLink' AppleScript droplet is designed to assist you with the generation of symbolic links to PSF's and PLF's. \
+\
+To use the AppleScript droplet use create links to PSF's, ensure that the PSF's are located within the 'PrinterSetupFiles' directory. Then, using the Finder (Mac OS X only) drag and drop the PSF('s) onto the 'CreateLink' droplet within the 'PrinterSetupLinks' directory. Next, follow the on screen instructions. \
+\
+The procedure described in the previous paragraph for creating symbolic links to PSF's also works for  PLF's, except the PLF's must be located within the 'PrinterLists' directory rather than the 'PrinterSetupFiles' directory.\
+\
+If you are not running Mac OS X, then then it is recommended that you either use the 'ln' command directly or use the bundled 'sh-enable-spcific.bash' script which is located in the the 'LinkGeneration' directory which is located within the 'ExampleFiles' directory which resides in the root of the PrinterSetup directory.\
+\
+To use the 'sh-enable-spcific.bash' script, enter the path to this script onto a terminal and then press enter. This should result in the usage information being displayed. Then follow the usage instructions and examples
+\f2 \
+
+\f0 \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 CUPS Configuration and Documentation Links: 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 \
+\'95\'a0To use login hooks this site has some good info : \
+		- http://www.bombich.com/mactips/loginhooks.html\
+\
+\'95\'a0CUPS documentation :\
+		- http://localhost:631/\
+		- http://localhost:631/help/network.html?TOPIC=Getting+Started&QUERY=\
+		- http://localhost:631/help/man-lpadmin.html?TOPIC=Man+Pages&QUERY=\
+\pard\pardeftab720\ql\qnatural
+\cf0 \
+			   \'95\'a0 Command line print queue configuration documentation (
+\i lpadmin
+\i0 ) :\
+				- http://localhost:631/help/man-lpoptions.html?TOPIC=Man+Pages&QUERY=\
+\
+			   \'95  Print queue status documentation (
+\i lpstat
+\i0 ) :\
+				-\'a0http://localhost:631/help/man-lpstat.html?TOPIC=Man+Pages&QUERY=\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Submitting Contributions to the Project : 
+\f2\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\f0 \cf0 For now please submit patches and other project enhancements to the contact details listed at :\
+http://lucidsystems.org. \
+\
+We will be setting up a better collaboration system in the near future, provided patches start arriving.\
+\
+The PrinterSetup project is still in a pre-alpha stage of development. As such, PrinterSetup still requires  lots tender love and care to be a truly successful project. In particular improvements to the documentation and further screen casts would be most helpful. Also, if you are interested in developing an improved web page for the project then please express your interest. \
+\
+There is so much to do. All assistance is appreciated. However, please be aware that this project is run as a dictatorship. As such, please do not be offended if your ideas are not accepted into the project. \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 History : 
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 Printer Setup is designed to simplify the management of printers on a small to medium sized network. It has been designed with the idea that as the network grows in size it should be scalable to meet the increasing complexities of printer management.\
+\
+As you have probably guessed this project is currently in a a development phase. BASH has been chosen as the prototyping language. Once the ideas, become more certain, there is a plan to port the code into python or possibly ruby.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Acknowledgments : \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2500\ql\qnatural\pardirnatural
+
+\b0 \cf0 The following people and organizations have contributed to PrinterSetup. With out their help PrinterSetup would not be what it is today. There is no particular order to the list.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2520\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0     Michael Sweet\
+    Henri Shustak\
+	Leif Keane\
+	St. Margaret's College\
+	Lucid Information Systems\
+	OrionTransfer\
+	Free Software Foundation\
+    CUP's (and all the people who have contributed to this project)\
+    Apple Inc. (who now own CUP's)\
+    Clif Hirtle\
+    Southern CT State University IT Help Desk\
+    Samuel Williams\
+	Stevan Reese - stevan@howlinghill.com\
+	Onne Gorter\
+	The rsync team.\
+	All the contributors to the various open source technologies used within the PrinterSetup project\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+\cf0 \
+	\
+\
+\
+}

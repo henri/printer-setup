@@ -1,0 +1,1 @@
+./PrinterSetup_Dynamic_Configuration_Installer-template/scripts/domain_configuration.app/

@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# GNU GPL Copyright Henri Shustak 2006
+#
+# Simple Script will unset the defualt printer, if this script is called by 
+# the user at login, it will force them to use the machines default printer.
+# 
+# If you do not want to rebuild printer lists, then this is a very quick
+# way of setting the correct default printer for the user who is logging into
+# the machine.
+#
+
+lpoptions -x dest
+
+exit 0

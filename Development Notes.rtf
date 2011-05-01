@@ -1,0 +1,252 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf350
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww12640\viewh17360\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1720\fi-1720\ql\qnatural\pardirnatural
+
+\f0\fs40 \cf0 Printer Setup Development Notes :\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+
+\fs24 \cf0 \
+\
+			
+\b Domain Specific Launching.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 	It would be interesting to have a way of only launching daemons when you are actually connected to the domain which they are relevant to. This feature is probably best left to Apple.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Script to Automate the Configuration of Dynamic and Update deployment methods.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 A better solution would be to have a script which could build or modify the example deployment so that it matches your domain. This could be as simple as pulling the current domain into a variable and then confirming this variable with the user. Then the script could modify all the settings in the PrinterSetup_OSX_UPDATE and PrinterSetup_OSX_DYNAMIC configurations.\
+So that it automatically changes all the domains to your domain. This would be a very good idea. This has been done for dynamic. This should also be done for Update.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Naming Issue.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 Identified bug with name matching. This issue is yet to be resolved. This issue requires further investigation.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Capitalization of the asset name debate.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 Address the Capitlization of the PrinterLinks for the asset name. This should probably only be set to allow lower case names. Some more thought and discussions about the implications should be carried out to reach a conclusion on the way this will move forward. Currently only capital letters are accepted.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Resolve issue with partial name matching of PLF and possibly PSF files.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 Basically if an asset tag returns a name which then partially matches a PLF or PSF then printer setup will run. This is a bug. Only exact matches should run for the asset name.\
+Unable to reproduce this bug it needs to be further investigated.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Hierarchy Support for PSF and PLF\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 It would be great to move to support SPF and PLF so that folder hierarchies. The question is how to do this and what is the best way to deal with this transition. Probably the best way to do this is gradually fix scripts. It will not be possible to do it suddenly it must be a gradual process.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Generating PSF Files from the currently configured printers.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 There is various information regarding the anatomy of the way cups stores this information,\
+located at the following URL. This feature has been implemented at a basic level.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 				{\field{\*\fldinst{HYPERLINK "http://www.lucidsystems.org/download/printingworks/SetupPrintersInMacOSX.pdf"}}{\fldrslt http://www.lucidsystems.org/download/printingworks/SetupPrintersInMacOSX.pdf}}\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Full Dereferencing Support\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 It would be good to have full dereferencing for all PSF and PSL files. This way if a link is created and the actual file is moved, deleted or re-named then an error could be logged with further information on the issue.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Asset Name Module  \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 It would be a good idea to have a separate module to deal with the retrieval of the asset name.\
+This would provide a way to easily include integrated scripts. Such scripts could  locate the asset name via the network from a database or via some other method such as server group membership lookups.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Clean up the PSF parsing.  \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 This code is now spread out into multiple files. This code should be consolidated into one component. Then this can be called from the various locations where this is required. Another language will make this easier. However, after bashing our heads against the screen long enough some blood will come out and we will end up with a solution and a nose bleed.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 \
+A GUI to manage the links files  \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 Spend some time making the helpful scripts a little more elegant. They get the job done but it is brute force and a bit of pig ignorance.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 \
+\
+A GUI to manage the links files  \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 Managing the symbolic links to PSF's and PLF's would be a great help to people who are just getting started with PrinterSetup. In addition it could reduce the chance of errors though input validation.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Look at the possibility of supporting offical install packages from printer manufactures.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 It would be possible under 10.5 to use the "open" command and pause the installation to \
+open a installer which is not in the Apple package format. This is certainly something to look at.\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Consider the move to a special entry in the file format to indicate either generic  or RAW\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 Again this is for compatibility and consistency with other systems. However, it will also force improvements to be made to the code responsible for dealing with generic printers.  Most importantly it will make the creation of RAW queues very easy and clear.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\i \cf0 Updated : 10 January 2008 : From version 0022 there is basic support for RAW print queues.
+\i0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b \cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+\cf0 Improved import and export\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 Increase the linkages to the PrinterSetupUtilities for configuration would be a good idea. it will mean that maintaining the system in the long run will be easier.
+\b \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+\cf0 \
+\
+Support for the installation of dependancies\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2240\ql\qnatural\pardirnatural
+
+\b0 \cf0 Adding the option to install packages may be a good idea. Currently it is not required. However, making the PSF file format conform with printer-setup and SimplePrint file formats may be a good idea. It will certainly make it easier for people moving between these systems.
+\b \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+\cf0 \
+\
+Improved  PSF information for the next version of the format.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2240\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 Adding a version number to the actual file format would be a good idea, rather than just\
+specifying it in a commend line.	\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Improved  OS Detection is required.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2280\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 Currently the OS Detection is almost completely manual. With some thought, this system can be greatly improved so that the operating system can be automatically detected. If this is put in place an override system would be a good idea. This system is going to require some more thought. In order to enable a uniformed auto operating detection system the current code will require re-factoring.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Extend Cross Platform checking and segregate cross-platform systems.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2280\ql\qnatural\pardirnatural
+
+\b0 \cf0 This is going to be very important in order to get PrinterSetup working on windows systems.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Consider a port to Ruby\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\ql\qnatural\pardirnatural
+
+\b0 \cf0 This will help get it running on windows, plus the code is a bit of mess and this would really help to tidy it up, even if it is just some sections of the system.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Consider more example files and help.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\fi360\ql\qnatural\pardirnatural
+
+\b0 \cf0 Particularly how to get started and neat little printer management scripts\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Consider a way to override the default printer\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\fi360\ql\qnatural\pardirnatural
+
+\b0 \cf0 A variable to control weather a PSF is required for a default printer, would be a possibility.\
+Having the default behavior specified in the future may be necessary.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+\cf0  
+\b \
+Consider a way to override the pre and post scripts : (implemented)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 Possibly a flag which could be passed in to the system which allows the PrinterSetup post and pre scripts to be enabled or disabled from the command line. Currently you can use the -s option followed by "ON" or "OFF" to enable or disable the pre and post scripts.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\ql\qnatural\pardirnatural
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Printer Configuration Per File : (implemented)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 It would be great to be able to have a single file for each printer this would make it easy to make a change or printer move. Such a setup may require another configuration folder to store the printer information.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 System Speed up : (python port, code simplification)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 At the moment a basic parse for  a single printer takes almost two seconds. There is plenty of room for optimization. This is probably to do with the many reads from the disk, this is inherent in the design, perhaps  a cache will also help speed\
+up creation, particularly if this is going to run at login.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 System Specification Lockdown\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 PrinterSetup is designed to be very flexible. This adds quite a bit of complexity, and unnecessary code. If the design is tightened then the system will be simpler for new people and will be more efficient. Use the current system, in a way which you like and let the developer know why you like using it this way, then together we begin locking down the way it works. Right now, I am not sure of the best way, therefore I have kept lots of options which may not be required open and easy to access. Because this system is still in a prototyping phase and is wide open to ideas about how the system can be improved how a  version one release version will operate.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
+
+\b \cf0 Improved Default Printer management\
+\pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li2260\fi20\ql\qnatural\pardirnatural
+
+\b0 \cf0 Presently, the only way of setting a default printer, is within a script or by adding a asterisk to the    \
+}

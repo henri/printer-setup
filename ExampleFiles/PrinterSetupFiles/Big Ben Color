@@ -1,0 +1,24 @@
+
+# This is a Printer Setup File. 
+# This file is intended for use with PrinterSetup
+# http://www.lucidsystems.org/printingworks/printersetup
+# 
+# Printer Setup File v0003
+# it is important that there are tabs inserted after the colon.
+# This version of the parsing system has an issue which means that
+# you can only have a few tabs. The port to python should resolve this
+# issue. 
+#
+# Also note that currently comments can only be at the start of a line
+# 
+# Printer Setup Notes : Printer Name is only valid if it contains no spaces
+#                       Use the "Printer Description" variable in order to
+#                       add a description with spaces.
+ 
+Printer Name :			BigBen
+Printer Description :		Big Ben Color
+Printer Location :		The Big Color Printer
+Printer Network Address :	lpd://bigben.mycomapny.com
+Paper Size : 			A4
+Printer PPD :			
+

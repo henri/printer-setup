@@ -1,0 +1,44 @@
+#!/bin/bash
+
+
+#
+# Script is licenced under the GNU GPL 
+# ©Copyright 2007 Henri Shustak
+# Lucid Information Systems
+# http://www.lucidsystems.org
+#
+
+# Version 0.2
+# This version supports newer version of cups whcih do not have the /etc/printcap file.
+
+
+# It is reccomeded that you run this script many times for it to be really effective.
+# Anyone care to explain why it will sometimes not work the first time?
+
+# Note this script works on Mac OS X. It may not work on other *NIX platforms
+
+
+# Check we are running as root
+currentUser=`whoami`
+if [ $currentUser != "root" ] ; then
+	echo This script must be run with super user privileges
+	exit -127
+fi
+
+
+# Remove all the printers - old version of cups
+# /bin/cat /etc/printcap | grep -v '^#' | cut -d'|' -f1 | xargs lpadmin -x > /dev/null 2>&1
+
+# New Version should deal with the new version of cups which dose not make a printcap file
+printers_exist=0
+while [ $printers_exist -eq 0 ] ; do
+    lpstat -p > /dev/null 2>&1
+    printers_exist=$?
+    /usr/bin/lpstat -p 2> /dev/null | cut -d' ' -f2 | xargs lpadmin -x > /dev/null 2>&1
+    if [ $? != 0 ] ; then
+        break
+    fi
+done
+
+
+exit 0

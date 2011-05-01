@@ -1,0 +1,88 @@
+#!/bin/bash
+
+##########################################################################
+##							      		                                ##
+## 	Example Setup Printers Removing Old Print Queues 					## 
+##	Sets up Printer Links Based Upon the Location  			            ##
+##  																	##
+##                                                                      ## 
+##  This scirpt is aimed at removing printers which are pointed at      ##
+##  A specific server and putting in some scripts to a new server       ##
+##  This could be handy if you are not using name prefixing on a        ##
+##  site and you need to migrate from one print server to another.      ##
+##																		##
+##	Copyright Henri Shustak 2008						                ##
+##	This Script is Released under the GNU GPL License		            ##
+## 																		##
+##  v0001																##
+##	Requires Printer Setup v0010 or Greater								##
+##									                                    ##
+##########################################################################
+
+
+
+delete_queues_pointing_at_this_device="oldprinterserver.host.name"
+continue_with_printer_setup="NO"
+
+# Return values to control what will happen
+PRINTERSETUP_CONTINUE=${PRINTERSETUP_CONTINUE}
+PRINTERSETUP_STOP=${PRINTERSETUP_STOP}
+
+printer_list=""
+printer_list_link=""
+printer_link_type="Undefined"
+
+bypass_level=1
+run_level=1
+
+number_of_printers_on_system=`lpstat -v | wc -l | awk '{print $1}'`
+
+while true ; do
+
+    echo $run_level
+
+    # Avoid any infiniate loops
+    if [ ${run_level} -le ${number_of_printers_on_system}  ] ; then
+
+        echo $bypass_level
+    
+        # this is wild west styles but it should work in many cases. If you improve this script hen please send updates back to the PrinterSetup project
+        current_queue_to_delete=`lpstat -v | grep -e "${delete_queues_pointing_at_this_device}" | awk -F "device for " '{print $2}' | awk -F ":" '{print $1}' | head -n ${bypass_level} | tail -n 1`
+    
+        echo $current_queue_to_delete
+        
+        if [ "${current_queue_to_delete}" != "" ] ; then 
+            
+            # double check that this is actually part of the server name
+            double_check_device_name=`lpstat -v ${current_queue_to_delete} | awk -F "device for ${current_queue_to_delete}: " '{print $2}' | grep "${delete_queues_pointing_at_this_device}"`
+            if [ "${double_check_device_name}" != "" ] ; then
+            
+                echo deleting : $current_queue_to_delete with device $double_check_device_name
+                continue_with_printer_setup="YES"
+                lpadmin -x ${current_queue_to_delete}
+            else
+                # Skip this printer
+                ((bypass_level++))
+            fi
+        else
+            # skip past a device which is detected with the server - but it is not matching the device
+            ((bypass_level++))
+        fi
+    else
+        # Break out of any infinate loops
+        break
+    fi
+    ((run_level++))
+done 
+ 
+
+
+# Report Back as to whether printer setup will continue
+if [ "${continue_with_printer_setup}" != "YES" ] ; then
+	exit $PRINTERSETUP_STOP
+fi
+
+
+
+exit $PRINTERSETUP_CONTINUE
+

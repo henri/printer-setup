@@ -1,0 +1,138 @@
+#!/bin/bash
+
+#
+# (C)2008 Henri Shustak
+# Lucid Information Systems
+# http://www.lucidsystems.org
+#
+
+#
+# Version 1.2
+#
+
+# Version History
+# 1.2 : Added support for locations with spaces in the names
+# 1.1 : Added some additional checks
+# 1.0 : Initial Implimentation
+
+# About this script
+# This is an example script for you to use if you would like to run printer setup when you are
+# connected to a wireless base station with a specific SSID and if you like a specific mac address
+
+# This script is really just a starting point. You will most likely want to modify this script
+# So that it will do a variety of different tests before actually running PrinterSetup.
+# Even if you just use it like it is you will at the least want to alter the configuration\
+# variables.
+#
+# Note :  If you are not using an update server to pull down updates then it 
+#         is probably not a good idea to not use the template name in the configuration_name 
+#         variable. You would be better off using some other name. For example if you are
+#         printer setup with this package, then you could use the name following configuration
+#         name to make things more understandable at a later date : 
+#         
+#         "printersetup-dynamic.yourdomain.com"
+#
+#
+
+
+
+################
+# CONFIGURATION
+################
+
+managedSSID="NetworkName"
+configuration_name="printersetup-update-server.yourdomain.com"
+printersetup_nameprefix="PRINTERSETUPDYNAMIC"
+
+
+################
+# VARIBLES
+################
+
+# Basics
+printersetup_configurations="/var/printersetup/configurations/"
+printersetup_executable_path_from_printersetup_root="/PrinterSetup.sh"
+printersetup_prefix_queue_name_queue_removal_script_path_from_printersetup_root="/ExampleFiles/Handy Scripts/sh-remove-printers-with-name-prefix.bash"
+
+# Calculated
+printersetup_executable="${printersetup_configurations}${configuration_name}${printersetup_executable_path_from_printersetup_root}"
+printersetup_prefix_queue_name_queue_removal_script="${printersetup_configurations}${configuration_name}${printersetup_prefix_queue_name_queue_removal_script_path_from_printersetup_root}"
+printersetup_domain_lock_file="/tmp/printersetup_dynamic_${configuration_name}.lock"
+dynamic_tag="printersetup_dynamic_${configuration_name}"
+
+################
+# Preflight
+################
+
+# redirect all IO to /dev/null (comment this out if you want to debug)
+exec 1>/dev/null 2>/dev/null
+
+# lock file check and creation
+if [ -f "${printersetup_domain_lock_file}" ] ; then
+    logger -s -p user.info -t "${dynamic_tag}" "Lock File Exists. Halting execution of script."
+    exit 0
+else
+    touch "${printersetup_domain_lock_file}"
+    if [ $? != 0 ] ; then
+        logger -s -p user.error -t "${dynamic_tag}" "ERROR! : Unable to create lock file : ${printersetup_domain_lock_file}"
+        exit -1
+    fi
+fi
+
+################
+# OTHER TESTS
+################
+
+# get a little breather before we get data for things to settle down
+sleep 2
+
+# get various system information
+SSID=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep ' SSID:' | cut -d ':' -f 2 | tr -d ' '`
+BSSID=`/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport -I | grep ' BSSID:' | awk -F ": " '{print $2}' | tr -d ' '`
+EN0IP=`ifconfig en0 | grep 'inet ' | cut -d' ' -f 2`
+EN0STATUS=`ifconfig en0 | tr -d "\t" | tr -d " " | grep -e '^media:' | awk -F ":" '{print $3}'`
+EN1IP=`ifconfig en1 | grep 'inet ' | cut -d' ' -f 2`
+EN1STATUS=`ifconfig en1 | tr -d "\t" | tr -d " " | grep -e '^media:' | awk -F ":" '{print $3}'`
+
+# Keep in mind this is not going to support spaces - you will need something more complicated....for that....
+#LOCATIONNAME=`scselect 2>&1 | grep " \* " | awk -F " * " '{print $3}' | awk '{print $2}' | sed 's/^(//' | sed 's/)$//'`
+
+# It would require something like the following... perhaps you will be able to improve this.
+#location_id=`scselect 2>&1 | grep " \* " | awk '{print $2}'`
+#LOCATIONNAME=`scselect 2>&1 | grep " \* " | awk -F "${location_id}\t" '{print $2}' | sed 's/^(//' | sed 's/)$//'`
+
+#AIRPORTPOWER=`networksetup -getairportpower 2> /dev/null | awk -F "AirPort Power: " '{print $2}'`
+#EN0SEARCHDOMAINS=`networksetup -getsearchdomains "Built-in Ethernet" 2> /dev/null | grep -v "There aren't any Search Domains"`
+#EN1SEARCHDOMAINS=`networksetup -getsearchdomains "AirPort" 2> /dev/null | grep -v "There aren't any Search Domains"`
+
+if [ "${SSID}" == "${managedSSID}" ] ; then
+
+    # If this is a managed SSID we are connected to then setup the printers.
+    "${printersetup_executable}" -a DYNAMIC -x -n "${printersetup_nameprefix}"
+        
+else
+
+    # Check if we have an airport connection and ensure that we are not on ethernet
+    if [ "$EN0STATUS" == "inactive" ] && [ "$EN1STATUS" != "active" ] ; then
+        # Ethernet is down and AirPort is up
+        if [ "$EN1IP" != "" ] ; then
+            # AirPort has a valid IP address
+
+            # Not connected to a valid SSID is not managed there remove the queue names which match this prefix name
+            "${printersetup_prefix_queue_name_queue_removal_script}" "${printersetup_nameprefix}"
+
+        fi
+    fi
+
+fi
+
+# Lock file clean up
+rm -f "${printersetup_domain_lock_file}"
+if [ $? != 0 ] ; then
+    logger -s -p user.error -t "${dynamic_tag}" "ERROR! : Unable to remove lock file : ${printersetup_domain_lock_file}"  
+    exit -1
+fi
+
+exit 0
+
+
