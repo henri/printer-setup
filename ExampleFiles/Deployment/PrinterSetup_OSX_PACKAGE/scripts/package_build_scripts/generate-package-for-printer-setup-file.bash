@@ -18,11 +18,15 @@
 # 
 # Version History 
 #   - 1.0 : initial release
+#   - 1.1 : added ability to use an enviroment varible to overwirte packages from external script.
 
-# Configuration 
+# Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
+
+# Configuration
 
 # Leave this set to no, unless you want to overwrite old packages (YES/NO)
-overwirte_existing_packages="NO"
+default_overwrite_existing_packages="NO"
+
 
 # Gather input arguments
 path_to_this_script="${0}"
@@ -36,7 +40,7 @@ packages_created=0
 printer_setup_files_processed=0
 package_creation_errors=0
 parent_folder="`dirname \"${path_to_this_script}\"`"
-path_from_root="/ExampleFiles/Handy Scripts"
+path_from_root="/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts"
 printer_setup_root="`echo \"${parent_folder}\"| awk -F \"${path_from_root}\" '{ print $1 }'`"
 room_number="OSXPACKAGE"
 buildscript="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts/printer_setup_build.bash"
@@ -61,9 +65,31 @@ function remove_tmporary_link {
 	fi
 }
 
+# Valadation
+# If this is not overiden then leave it alone.
+if [ "${overwrite_existing_packages}" == "" ] ; then
+    # validate the current setting 
+    overwrite_existing_packages="${default_overwrite_existing_packages}"
+fi
+
+# Valadate overwrite_existing_packages varible
+if [ "${overwrite_existing_packages}" != "YES" ] && [ "${overwrite_existing_packages}" != "NO" ] ; then
+    echo "     ERROR! : The overwrite_existing_packages varible is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
+    echo "              The env command will typically provide a list of environment variables"
+    echo "              The default option is \"NO\" ; as to not overwrite existing packages."
+    exit -1
+fi
+
+# Report that files will be overwritten
+if [ "${overwrite_existing_packages}" == "YES" ] ; then
+    echo "     NOTE! : Overwriting of existing packages found within the output directory is enabled."
+    sleep 3
+fi
+
 # Checking the arguments
-if [ $num_arguments != 2 ] ; then
-        echo "Usage : $0 <path_to_printer_setup_file> <output_directory_for_package>"
+if [ $num_arguments -ne 2 ] ; then
+        echo "    Usage : $0 <path_to_printer_setup_file> <output_directory_for_package>" #  [path_to_printer_setup_file]
         exit -1
 fi
 
@@ -97,7 +123,7 @@ output_package="${output_directory}/${psf_name}.pkg"
 
 # Check if package already exists within the output directory
 if [ -e "${output_package}" ] ; then
-	if [ "${overwirte_existing_packages}" == "NO" ] ; then
+	if [ "${overwrite_existing_packages}" == "NO" ] ; then
 		# The existing package will not be overwritten
 		echo "    WARNING : Install package already exists in output directory."
        	echo "    Package creation for \"${psf_name}.pkg\" has been skipped."
@@ -115,7 +141,8 @@ if [ -e "${output_package}" ] ; then
 fi
 
 # Delete any link which may already exit. The sync commands may improve reliability
-# Note : There is a function specified below which this could be migrated to at some point in the futuresync
+# Note : There is a function specified below which this could be migrated to at some point in the future
+sync
 sleep 1
 rm -f "${setupPrinter}"
 if [ $? != 0 ] ; then
@@ -152,7 +179,8 @@ fi
 
 
 if [ $? != 0 ] ; then
-	remove_tmporary_link	echo "    ERROR! Building Package. Package building canceled."
+	remove_tmporary_link
+	echo "    ERROR! Building Package. Package building canceled."
 	exit -1
 else
 	remove_tmporary_link
