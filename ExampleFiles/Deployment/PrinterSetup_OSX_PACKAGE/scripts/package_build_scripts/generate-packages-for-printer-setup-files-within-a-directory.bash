@@ -202,10 +202,11 @@ fi
 # check input directory for any .pkg files. If.pkg files are found then exit as this may not be the correct input directory.
 if [ "${allow_pkg_files_within_input_directory}" == "NO" ] ; then
 	number_of_packages_within_the_input_directory=`ls -l "${input_psf_dir}/"*.pkg 2>> /dev/null | wc -l | awk '{print $1}'`
-	if [ $number_of_packages_within_the_input_directory -gt 0 ] ; then
+	if [ $number_of_packages_within_the_input_directory != 0 ] ; then
 		echo "    ERROR! : Package files (.pkg) were detected within the output directory."
 		echo "             Please check that the output directory is listed as the second argument"
 		echo "             and that there are no .pkg files within this directory."
+		exit -1
 	fi
 fi
 
