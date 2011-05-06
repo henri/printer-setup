@@ -14,11 +14,12 @@
 # This script will require PrinterSetup PrinterSetup_v0041 or later.
 #
 #
-# Version 1.0
+# Version 1.2
 # 
 # Version History 
 #   - 1.0 : initial release
-#   - 1.1 : added ability to use an enviroment varible to overwirte packages from external script.
+#   - 1.1 : added ability to use an environment variable to overwrite packages from external script.
+#   - 1.2 : added features to facilitate processing a directory via a wrapper script
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -26,7 +27,8 @@
 
 # Leave this set to no, unless you want to overwrite old packages (YES/NO)
 default_overwrite_existing_packages="NO"
-
+default_report_skipped_packages="YES"
+default_display_warning_on_package_overwriting_for_each_pacakge="NO"
 
 # Gather input arguments
 path_to_this_script="${0}"
@@ -65,16 +67,49 @@ function remove_tmporary_link {
 	fi
 }
 
-# Valadation
-# If this is not overiden then leave it alone.
+# Validation
+# If this is not overridden then leave it alone.
 if [ "${overwrite_existing_packages}" == "" ] ; then
     # validate the current setting 
     overwrite_existing_packages="${default_overwrite_existing_packages}"
 fi
 
-# Valadate overwrite_existing_packages varible
+# Validate overwrite_existing_packages variable
 if [ "${overwrite_existing_packages}" != "YES" ] && [ "${overwrite_existing_packages}" != "NO" ] ; then
-    echo "     ERROR! : The overwrite_existing_packages varible is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "     ERROR! : The overwrite_existing_packages variable is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
+    echo "              The env command will typically provide a list of environment variables"
+    echo "              The default option is \"NO\" ; as to not overwrite existing packages."
+    exit -1
+fi
+
+
+# If this is not overridden then leave it alone.
+if [ "${report_skipped_packages}" == "" ] ; then
+    # validate the current setting 
+    report_skipped_packages="${default_report_skipped_packages}"
+fi
+
+# Validate report_skipped_packages variable
+if [ "${report_skipped_packages}" != "YES" ] && [ "${report_skipped_packages}" != "NO" ] ; then
+    echo "     ERROR! : The report_skipped_packages variable is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
+    echo "              The env command will typically provide a list of environment variables"
+    echo "              The default option is \"NO\" ; as to not overwrite existing packages."
+    exit -1
+fi
+
+
+# If this is not overridden then leave it alone.
+if [ "${display_warning_on_package_overwriting_for_each_pacakge}" == "" ] ; then
+    # validate the current setting 
+    display_warning_on_package_overwirting_for_each_pacakge="${default_display_warning_on_package_overwriting_for_each_pacakge}"
+fi
+export display_warning_on_package_overwirting_for_each_pacakge
+
+# Validate report_skipped_packages variable
+if [ "${display_warning_on_package_overwriting_for_each_pacakge}" != "YES" ] && [ "${display_warning_on_package_overwriting_for_each_pacakge}" != "NO" ] ; then
+    echo "     ERROR! : The display_warning_on_package_overwriting_for_each_pacakge variable is not valid. It must be set to \"YES\" or \"NO\"."
     echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
     echo "              The env command will typically provide a list of environment variables"
     echo "              The default option is \"NO\" ; as to not overwrite existing packages."
@@ -82,10 +117,11 @@ if [ "${overwrite_existing_packages}" != "YES" ] && [ "${overwrite_existing_pack
 fi
 
 # Report that files will be overwritten
-if [ "${overwrite_existing_packages}" == "YES" ] ; then
+if [ "${overwrite_existing_packages}" == "YES" ] && [ "${display_warning_on_package_overwirting_for_each_pacakge}" == "YES" ]; then
     echo "     NOTE! : Overwriting of existing packages found within the output directory is enabled."
     sleep 3
 fi
+
 
 # Checking the arguments
 if [ $num_arguments -ne 2 ] ; then
@@ -125,9 +161,11 @@ output_package="${output_directory}/${psf_name}.pkg"
 if [ -e "${output_package}" ] ; then
 	if [ "${overwrite_existing_packages}" == "NO" ] ; then
 		# The existing package will not be overwritten
-		echo "    WARNING : Install package already exists in output directory."
-       	echo "    Package creation for \"${psf_name}.pkg\" has been skipped."
-		exit -1 
+		if [ "${report_skipped_packages}" == "YES" ] ; then
+			echo "    WARNING : Install package already exists in output directory."
+       			echo "    Package creation for \"${psf_name}.pkg\" has been skipped."
+		fi
+		exit 2
 	else
 		# Remove the existing package from the output directory
 		sleep 1
@@ -140,7 +178,7 @@ if [ -e "${output_package}" ] ; then
 	fi
 fi
 
-# Delete any link which may already exit. The sync commands may improve reliability
+# Delete any link which may already exit. The sync commands may improve reliability
 # Note : There is a function specified below which this could be migrated to at some point in the future
 sync
 sleep 1
@@ -162,7 +200,7 @@ printer_setup_realitive_link="${printersetup_printer_setup_files_realiitive_link
 cd "${PrinterSetupLinks_Path}"
 if [ $? != 0 ] ; then
 	echo "    ERROR!: Preparing for creation of the PSF package link."
-	exit -1
+	exit 2
 fi
 
 # Create the relative link to the printer setup file
