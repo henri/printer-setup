@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 # GNU GPL Copyright Henri Shustak 2011
 # 
 # Lucid Information Systems
@@ -14,7 +14,7 @@
 # This script will require PrinterSetup PrinterSetup_v0041 or later.
 #
 #
-# Version 1.2
+# Version 1.3
 # 
 # Version History 
 #   - 1.0 : initial release
@@ -28,8 +28,14 @@
 
 # Leave this set to no, unless you want to overwrite old packages (YES/NO)
 default_overwrite_existing_packages="NO"
+
+# Leave this set to yes, unless you want no report that a package was skipped (YES/NO)
 default_report_skipped_packages="YES"
+
+# Leave this set to no, unless you want to report that a package was overwritten (YES/NO)
 default_display_warning_on_package_overwriting_for_each_pacakge="NO"
+
+# Leave this set to no, unless you want to build a package to set the defualt printer on a system rather than create the queue (YES/NO)
 default_build_default_printer_installers_not_printer_creation_installers="NO"
 
 # Gather input arguments

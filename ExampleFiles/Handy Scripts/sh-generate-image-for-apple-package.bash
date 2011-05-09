@@ -8,17 +8,19 @@
 # Converts a directory of apple installers into seperate disk image files, each contining one of the installers
 #
 
-# Version 1.1
+# Version 1.3
 # 
 # Version History
 # 1.0 : initial release
 # 1.1 : fixed a bug relating to the deletion of images when skipping exisiting images was disabled.
 # 1.2 : minor update to output reporting.
+# 1.3 : added the ability to overwrite images via an environment variable.
 
 # Configuration 
 
 # Leave this set to yes, unles you want to overwirte old disk images
-skip_alreay_created_pacakges="YES"
+default_overwrite_existing_images="NO"
+
 
 # Gather input arguments
 input_directory="${1}" 
@@ -30,6 +32,22 @@ num_images_skipped=0
 images_created=0
 packages_processed=0
 image_creation_errors=0
+
+# Validate the environment variables
+if [ "${overwrite_existing_images}" == "" ] ; then
+    # validate the current setting 
+    overwrite_existing_images="${default_overwrite_existing_images}"
+fi
+
+# Validate overwrite_existing_images variable
+if [ "${overwrite_existing_images}" != "YES" ] && [ "${overwrite_existing_images}" != "NO" ] ; then
+    echo "     ERROR! : The overwrite_existing_images variable is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
+    echo "              The env command will typically provide a list of environment variables"
+    echo "              The default option is \"NO\" ; as to not overwrite existing packages."
+    exit -1
+fi
+
 
 # Checking the arguments
 if [ $num_arguments != 2 ] ; then
@@ -73,7 +91,7 @@ for package_pkg in "${input_directory}"/*.pkg ; do
         echo "Generating disk image for package : $name_of_packge"
         
         if [ -e "${location_of_image_with_extension}" ] ; then
-                if ! [ "${skip_alreay_created_pacakges}" == "YES" ] ; then 
+                if [ "${overwrite_existing_images}" == "YES" ] ; then 
                         rm "${location_of_image_with_extension}"
                 else
                         echo "       Image already exists for package. A new image will not be generated."
