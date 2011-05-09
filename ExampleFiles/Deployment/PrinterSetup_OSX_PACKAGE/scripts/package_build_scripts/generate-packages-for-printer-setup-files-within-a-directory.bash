@@ -11,12 +11,13 @@
 # This script will require PrinterSetup PrinterSetup_v0053 or later.
 #
 #
-# Version 1.2
+# Version 1.3
 # 
 # Version History 
 #   - 1.0 : initial release.
 #   - 1.1 : added ability to specify that default queue setting packages are generated.
-#   - 1.2 : added exit code (return code) when there is a processing error
+#   - 1.2 : added exit code (return code) when there is a processing error.
+#   - 1.3 : fixed a bug which means that the overwrite exiting packages options may be set.
 
 # Configuration 
 
@@ -308,4 +309,3 @@ exit 0
 
 
 
- 
