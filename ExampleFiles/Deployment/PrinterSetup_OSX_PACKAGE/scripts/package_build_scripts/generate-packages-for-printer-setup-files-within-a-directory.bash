@@ -14,7 +14,8 @@
 # Version 1.0
 # 
 # Version History 
-#   - 1.0 : initial release
+#   - 1.0 : initial release.
+#   - 1.1 : added ability to specify that default queue setting packages are generated.
 
 # Configuration 
 
@@ -32,6 +33,9 @@ default_display_warning_on_package_overwriting_for_each_pacakge="NO"
 
 # Leave this alone unless you would not like a warning when you are overwritting packages
 default_display_warning_on_package_overwirting_for_processing_of_psfs_within_directory="YES"
+
+# Leave this alone unless you do not need a default printer installer package to generated
+default_build_default_printer_installers_not_printer_creation_installers="NO"
 
 
 # Note : There are various reasons for not using 'shift' in order to process multiple files passed in from the command line.
@@ -60,7 +64,11 @@ path_to_build_script="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup
 # functions(s)
 
 function make_package_for_current_psf {
-	echo -n "building package for ${current_psf_name}..."
+	if [ "${build_default_printer_installers_not_printer_creation_installers}" == "NO" ] ; then
+		echo -n "building install package for ${current_psf_name}..."
+	else
+		echo -n "building default package for ${current_psf_name}..."
+	fi
 	"${path_to_build_script}" "${current_psf}" "${output_dir}"
 	build_pacakge_return=$?
 	if [ ${build_pacakge_return} != 0 ] ; then
@@ -83,7 +91,6 @@ if [ $num_arguments -ne 2 ] ; then
         echo "    Usage : $0 <path_to_directory_only_containing_printer_setup_file> <output_directory_for_packages>"
         exit -1
 fi
-
 
 # Checking the output directory
 if ! [ -d "${output_dir}" ] ; then 
@@ -141,7 +148,6 @@ if [ "${report_skipped_packages}" != "YES" ] && [ "${report_skipped_packages}" !
     exit -1
 fi
 
-
 # data input validation
 # If this is not overridden then leave it alone.
 if [ "${allow_pkg_files_within_input_directory}" == "" ] ; then
@@ -149,7 +155,7 @@ if [ "${allow_pkg_files_within_input_directory}" == "" ] ; then
     allow_pkg_files_within_input_directory="${default_allow_pkg_files_within_input_directory}"
 fi
 
-# Validate report_skipped_packages variable
+# Validate allow_pkg_files_within_input_directory variable
 if [ "${allow_pkg_files_within_input_directory}" != "YES" ] && [ "${allow_pkg_files_within_input_directory}" != "NO" ] ; then
     echo "     ERROR! : The allow_pkg_files_within_input_directory variable is not valid. It must be set to \"YES\" or \"NO\"."
     echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
@@ -165,7 +171,7 @@ if [ "${display_warning_on_package_overwriting_for_each_pacakge}" == "" ] ; then
 fi
 export display_warning_on_package_overwriting_for_each_pacakge
 
-# Validate report_skipped_packages variable
+# Validate display_warning_on_package_overwriting_for_each_pacakge variable
 if [ "${display_warning_on_package_overwriting_for_each_pacakge}" != "YES" ] && [ "${display_warning_on_package_overwriting_for_each_pacakge}" != "NO" ] ; then
     echo "     ERROR! : The display_warning_on_package_overwriting_for_each_pacakge variable is not valid. It must be set to \"YES\" or \"NO\"."
     echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
@@ -181,7 +187,7 @@ if [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_dir
 fi
 export display_warning_on_package_overwriting_for_each_pacakge
 
-# Validate report_skipped_packages variable
+# Validate display_warning_on_package_overwirting_for_processing_of_psfs_within_directory variable
 if [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_directory}" != "YES" ] && [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_directory}" != "NO" ] ; then
     echo "     ERROR! : The display_warning_on_package_overwirting_for_processing_of_psfs_within_directory variable is not valid. It must be set to \"YES\" or \"NO\"."
     echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
@@ -189,6 +195,40 @@ if [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_dir
     echo "              The default option is \"NO\" ; as to not overwrite existing packages."
     exit -1
 fi
+
+# If this is not overridden then leave it alone.
+if [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_directory}" == "" ] ; then
+    # validate the current setting 
+    display_warning_on_package_overwirting_for_processing_of_psfs_within_directory="${default_display_warning_on_package_overwirting_for_processing_of_psfs_within_directory}"
+fi
+export display_warning_on_package_overwriting_for_each_pacakge
+
+# Validate display_warning_on_package_overwirting_for_processing_of_psfs_within_directory variable
+if [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_directory}" != "YES" ] && [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_directory}" != "NO" ] ; then
+    echo "     ERROR! : The display_warning_on_package_overwirting_for_processing_of_psfs_within_directory variable is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
+    echo "              The env command will typically provide a list of environment variables"
+    echo "              The default option is \"NO\" ; as to not overwrite existing packages."
+    exit -1
+fi
+
+
+# If this is not overridden then leave it alone.
+if [ "${build_default_printer_installers_not_printer_creation_installers}" == "" ] ; then
+    # validate the current setting 
+    build_default_printer_installers_not_printer_creation_installers="${default_build_default_printer_installers_not_printer_creation_installers}"
+fi
+export build_default_printer_installers_not_printer_creation_installers
+
+# Validate build_default_printer_installers_not_printer_creation_installers variable
+if [ "${build_default_printer_installers_not_printer_creation_installers}" != "YES" ] && [ "${build_default_printer_installers_not_printer_creation_installers}" != "NO" ] ; then
+    echo "     ERROR! : The build_default_printer_installers_not_printer_creation_installers variable is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
+    echo "              The env command will typically provide a list of environment variables"
+    echo "              The default option is \"NO\" ; as to not overwrite existing packages."
+    exit -1
+fi
+
 
 # Report that files will be overwritten
 if [ "${overwrite_existing_packages}" == "YES" ] && [ "${display_warning_on_package_overwirting_for_processing_of_psfs_within_directory}" == "YES" ]; then
@@ -224,7 +264,6 @@ for item in "${input_psf_dir}/"*; do
         	((input_files_processed++))
 
 			#output_package_path="${output_dir}/${current_psf_name}.pkg"
-			
 
         	# process the psf
         	make_package_for_current_psf
@@ -246,7 +285,11 @@ done
 # Print a summary 
 echo ""
 echo ""
-echo "Summary : "
+if [ "${build_default_printer_installers_not_printer_creation_installers}" == "NO" ] ; then
+	echo "Summary (install package creation) : "
+else
+	echo "Summary (default package creation) : "
+fi
 echo "======================================================== "
 echo "Number of processed input files                    : $input_files_processed"
 echo "Number of packages generated successfully          : $packages_successfully_generated"
