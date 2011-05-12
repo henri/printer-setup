@@ -11,10 +11,11 @@
 #
 # This script will require PrinterSetup PrinterSetup_v0053 or later.
 #
-# Version 1.0
+# Version 1.1
 # 
 # Version History 
 #   - 1.0 : initial release.
+#   - 1.1 : various bug fixes.
 #
 #
 # Create installer packges and disk imsages for all the PSF files within the realitive PrinterSetup directory.
@@ -211,7 +212,6 @@ fi
 
 ### Build some print queue installer packages 
 output_dir="${output_packages_create_printers_dir}"
-export overwrite_existing_packages="YES"
 export build_default_printer_installers_not_printer_creation_installers="NO"
 "${path_to_generate_packages_script}" "${input_psf_dir}" "${output_dir}"
 if [ $? != 0 ] ; then

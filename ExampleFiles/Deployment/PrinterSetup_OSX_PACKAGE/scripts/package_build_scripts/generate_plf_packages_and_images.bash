@@ -15,6 +15,7 @@
 # 
 # Version History 
 #   - 1.0 : initial release.
+#   - 1.1 : bug fixes
 #
 #
 # Create installer packges and disk imsages for all the PLF files within the realitive PrinterSetup directory.
@@ -204,8 +205,7 @@ fi
 
 
 
-### Build some print queue installer packages 
-export overwrite_existing_packages="YES"
+### Build some print queue installer packages
 "${path_to_generate_packages_script}" "${input_plf_dir}" "${output_packages_dir}"
 if [ $? != 0 ] ; then
 	echo ""
