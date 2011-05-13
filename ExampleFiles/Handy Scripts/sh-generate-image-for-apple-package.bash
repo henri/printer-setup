@@ -15,6 +15,7 @@
 # 1.1 : fixed a bug relating to the deletion of images when skipping exisiting images was disabled.
 # 1.2 : minor update to output reporting.
 # 1.3 : added the ability to overwrite images via an environment variable.
+# 1.4 : minor changes to the summary output.
 
 # Configuration 
 
@@ -116,7 +117,7 @@ done
 # Print a summary 
 echo ""
 echo ""
-echo "Summary : "
+echo "Summary : (image creation)"
 echo "======================================================== "
 echo "Packages in directory processed for image creation : $packages_processed"
 echo "Packages skipped due to earlier image creation     : $num_images_skipped"
