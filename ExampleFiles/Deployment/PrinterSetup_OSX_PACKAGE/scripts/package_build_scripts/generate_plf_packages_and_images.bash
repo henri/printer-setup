@@ -218,7 +218,7 @@ fi
 
 
 ### Create image files for these recently generated packages (creating printer lists install packages)
-"${path_to_generate_images_script}" "${output_packages_create_printers_dir}" "${output_images_dir}"
+"${path_to_generate_images_script}" "${output_packages_dir}" "${output_images_dir}"
 if [ $? != 0 ] ; then
 	echo ""
 	echo "     ERROR! : During generation of images which create CUPS print queues :"
