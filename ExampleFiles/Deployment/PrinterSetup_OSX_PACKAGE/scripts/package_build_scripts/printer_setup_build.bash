@@ -16,7 +16,7 @@ build_dest="${2}"
 "${packagemaker}" -i ${package_identifier} -d "${build_file}" -o "${build_dest}" 
 
 if [ $? != 0 ] ; then
-        echo "ERROR! : Building Package"
+        echo "    ERROR! : Building Package"
         exit -1
 fi
 

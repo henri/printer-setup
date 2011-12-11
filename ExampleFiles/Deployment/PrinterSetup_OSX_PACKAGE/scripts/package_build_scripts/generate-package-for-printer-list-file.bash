@@ -13,10 +13,10 @@
 # This script will require PrinterSetup PrinterSetup_v0041 or later.
 #
 #
-# Version 1.0
 # 
 # Version History 
-#   - 1.0 : initial release
+#   - 1.0 : initial release.
+#   - 1.1 : various bug fix relating to printer list files being processed.
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -54,8 +54,8 @@ PrinterSetupLinks_Path="${printer_setup_root}/PrinterSetupLinks"
 setupPrinter_link_name="PLF-${room_number}-PrinterDroplet4Package-ForEachPLF" # note that this may need to be changed or perhaps a droplet created?
 setupPrinter="${PrinterSetupLinks_Path}/${setupPrinter_link_name}"
 printer_setup_script="${printer_setup_root}/PrinterSetup.sh"
-printersetup_root_path_detction_string_for_printer_setup_files="/PrinterSetupFiles/"
-printersetup_printer_setup_files_realiitive_link_path="../PrinterSetupFiles/"
+printersetup_root_path_detction_string_for_printer_list_files="/PrinterLists/"
+printersetup_printer_list_files_realiitive_link_path="../PrinterLists/"
 
 # Function(s)
 
@@ -133,7 +133,7 @@ fi
 # If this is not overridden then leave it alone.
 if [ "${display_warning_on_package_overwriting_for_each_pacakge}" == "" ] ; then
     # validate the current setting 
-    display_warning_on_package_overwirting_for_each_pacakge="${default_display_warning_on_package_overwriting_for_each_pacakge}"
+    display_warning_on_package_overwriting_for_each_pacakge="${default_display_warning_on_package_overwriting_for_each_pacakge}"
 fi
 
 # Validate report_skipped_packages variable
@@ -155,7 +155,7 @@ fi
 
 # Checking the arguments
 if [ $num_arguments -ne 2 ] ; then
-        echo "    Usage : $0 <path_to_printer_setup_file> <output_directory_for_package>" #  [path_to_printer_setup_file]
+        echo "    Usage : $0 <path_to_printer_setup_list> <output_directory_for_package>" #  [path_to_printer_setup_file]
         exit -1
 fi
 
@@ -205,10 +205,9 @@ fi
 sync
 
 
-# Calculate the relative link to the printer setup file
-printer_setup_realitive_link_from_printersetupfiles_directory="`echo \"${input_printer_list_file}\" | awk -F \"${printersetup_root_path_detction_string_for_printer_setup_files}\" '{print $2 }'`"
-printer_setup_realitive_link="${printersetup_printer_setup_files_realiitive_link_path}${printer_setup_realitive_link_from_printersetupfiles_directory}"
-
+# Calculate the relative link to the printer list file
+printer_setup_realitive_link_from_printersetupfiles_directory="`echo \"${input_printer_list_file}\" | awk -F \"${printersetup_root_path_detction_string_for_printer_list_files}\" '{print $2 }'`"
+printer_setup_realitive_link="${printersetup_printer_list_files_realiitive_link_path}${printer_setup_realitive_link_from_printersetupfiles_directory}"
 
 # Prepare to create the relative link to the printer setup file
 cd "${PrinterSetupLinks_Path}"
@@ -217,7 +216,7 @@ if [ $? != 0 ] ; then
 	exit 2
 fi
 
-# Create the relative link to the printer setup file
+# Create the relative link to the printer list file
 ln -s "${printer_setup_realitive_link}" "./${setupPrinter_link_name}"
 if [ $? != 0 ] ; then
 	echo "    ERROR!: Unable to create the relative PLF package link."
@@ -232,7 +231,7 @@ fi
 
 if [ $? != 0 ] ; then
 	remove_tmporary_link
-	echo "    ERROR! Building Package. Package building canceled."
+	echo "    ERROR! : Building Package. Package building canceled."
 	exit -1
 else
 	remove_tmporary_link

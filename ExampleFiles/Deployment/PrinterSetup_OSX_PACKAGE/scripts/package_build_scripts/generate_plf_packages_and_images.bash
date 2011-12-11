@@ -54,7 +54,7 @@ default_display_warning_on_package_overwirting_for_processing_of_plfs_within_dir
 parent_folder="`dirname \"${path_to_this_script}\"`"
 path_from_root="/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts"
 printer_setup_root="`echo \"${parent_folder}\"| awk -F \"${path_from_root}\" '{ print $1 }'`"
-path_to_generate_packages_script="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts/generate-packages-for-printer-setup-files-within-a-directory.bash"
+path_to_generate_packages_script="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts/generate-packages-for-printer-list-files-within-a-directory.bash"
 path_to_generate_images_script="${printer_setup_root}/ExampleFiles/Handy Scripts/sh-generate-image-for-apple-package.bash"
 path_to_plf_directory="${printer_setup_root}/PrinterLists"
 input_plf_dir="${path_to_plf_directory}"

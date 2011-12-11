@@ -21,6 +21,7 @@
 #   - 1.1 : added ability to use an environment variable to overwrite packages from external script.
 #   - 1.2 : added features to facilitate processing a directory via a wrapper script.
 #   - 1.3 : added features to facilitate building of the default queue setting packages.
+#   - 1.4 : bug fixes relating to overwirtting varible settings.
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -154,7 +155,7 @@ fi
 # If this is not overridden then leave it alone.
 if [ "${display_warning_on_package_overwriting_for_each_pacakge}" == "" ] ; then
     # validate the current setting 
-    display_warning_on_package_overwirting_for_each_pacakge="${default_display_warning_on_package_overwriting_for_each_pacakge}"
+    display_warning_on_package_overwriting_for_each_pacakge="${default_display_warning_on_package_overwriting_for_each_pacakge}"
 fi
 
 # Validate report_skipped_packages variable
