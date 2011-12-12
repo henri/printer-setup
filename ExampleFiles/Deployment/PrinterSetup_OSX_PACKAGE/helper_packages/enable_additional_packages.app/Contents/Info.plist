@@ -13,11 +13,16 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>enable additional_packags</string>
+	<string>enable_additional_packages</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>aplt</string>
+	<key>LSMinimumSystemVersionByArchitecture</key>
+	<dict>
+		<key>x86_64</key>
+		<string>10.6</string>
+	</dict>
 	<key>LSRequiresCarbon</key>
 	<true/>
 	<key>WindowState</key>
@@ -27,7 +32,7 @@
 		<key>positionOfDivider</key>
 		<real>353</real>
 		<key>savedFrame</key>
-		<string>64 333 956 553 0 0 1440 938 </string>
+		<string>43 199 956 553 0 0 1280 778 </string>
 		<key>selectedTabView</key>
 		<string>result</string>
 	</dict>
