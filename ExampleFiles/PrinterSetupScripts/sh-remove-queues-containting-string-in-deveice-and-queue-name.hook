@@ -7,22 +7,25 @@
 ##  																	##
 ##                                                                      ## 
 ##  This scirpt is aimed at removing printers which are pointed at      ##
-##  A specific server and putting in some scripts to a new server       ##
-##  This could be handy if you are not using name prefixing on a        ##
-##  site and you need to migrate from one print server to another.      ##
+##  A specific server and which also contain a specific string within   ##
+##  the CUPS queue name. This could be handy if you are not using name  ##
+##  prefixing on a site and you need to migrate some devices from one   ##
+##  print server to another. 											##
 ##																		##
-##	Copyright Henri Shustak 2008						                ##
+##	Copyright Henri Shustak 2011						                ##
 ##	This Script is Released under the GNU GPL License		            ##
 ## 																		##
-##  v0002																##
-##	Requires Printer Setup v0010 or Greater								##
+##  v0001																##
+##	Requires Printer Setup v0010 or later								##
 ##									                                    ##
 ##########################################################################
 
 
 
 delete_queues_pointing_at_this_device="oldprinterserver.host.name"
+delete_queues_containing_string_within_queue_name="copier"
 continue_with_printer_setup="NO"
+
 
 # Return values to control what will happen
 PRINTERSETUP_CONTINUE=${PRINTERSETUP_CONTINUE}
@@ -46,8 +49,8 @@ while true ; do
 
         # echo $bypass_level
     
-        # this is wild west styles but it should work in many cases. If you improve this script hen please send updates back to the PrinterSetup project
-        current_queue_to_delete=`lpstat -v | grep -e "${delete_queues_pointing_at_this_device}" | awk -F "device for " '{print $2}' | awk -F ":" '{print $1}' | head -n ${bypass_level} | tail -n 1`
+        # this is wild west styles but it should work in many cases. If you improve this script hen please contribute updates back to the PrinterSetup project
+        current_queue_to_delete=`lpstat -v | grep -e "${delete_queues_pointing_at_this_device}" | awk -F "device for " '{print $2}' | awk -F ":" '{print $1}' | grep -e "${delete_queues_containing_string_within_queue_name}" | head -n ${bypass_level} | tail -n 1`
     
         # echo $current_queue_to_delete
         
