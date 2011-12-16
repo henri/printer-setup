@@ -39,7 +39,7 @@ number_of_printers_on_system=`lpstat -v | wc -l | awk '{print $1}'`
 
 while true ; do
 
-    echo $run_level
+     # echo $run_level
 
     # Avoid any infiniate loops
     if [ ${run_level} -le ${number_of_printers_on_system}  ] ; then
