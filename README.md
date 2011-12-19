@@ -5,7 +5,7 @@ PrinterSetup is an open source (GNU GPL) cups print queue management system.
 Comments and suggestions regarding the PrinterSetup project are welcomed.
 
   - [Download the latest zip build version][1]. 
-  - Learn about PrinterSetup visually with [screen casts][2].
+  - [PrinterSetup screen casts][2].
 
 
 [1]: http://www.lucidsystems.tk/download/printersetup/
