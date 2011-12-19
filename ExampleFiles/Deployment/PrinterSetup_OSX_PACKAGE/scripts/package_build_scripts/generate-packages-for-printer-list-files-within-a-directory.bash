@@ -274,7 +274,7 @@ fi
 echo "======================================================== "
 echo "Number of processed input files                    : $input_files_processed"
 echo "Number of packages generated successfully          : $packages_successfully_generated"
-echo "Number of packages skilled                         : $pacakges_skipped"
+echo "Number of packages skipped                         : $pacakges_skipped"
 echo "Number of processing errors                        : $processing_errors"
 echo ""
 echo ""
