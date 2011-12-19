@@ -15,5 +15,5 @@ Comments and suggestions regarding the PrinterSetup project are welcomed.
 [1]: http://www.lucidsystems.tk/download/printersetup/
 [2]: http://www.lucidsystems.tk/tools/printingworks/printersetup/screencasts/
 [3]: http://www.lucidsystems.tk/download/AboutPrinterSetup.pdf
-[4]: http://lists.connect.homeunix.com/listinfo/printersetup-discussion
+[4]: http://www.lucidsystems.tk/tools/printingworks/printersetup/lists/discuss/
 [5]: http://www.lucidsystems.tk/tools/printingworks/printersetup/SystemOverview.png
