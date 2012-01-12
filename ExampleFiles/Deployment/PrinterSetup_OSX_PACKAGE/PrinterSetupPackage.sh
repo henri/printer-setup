@@ -8,7 +8,7 @@
 # This script is the script which is run when you build a package.
 # Simply change this as required for your needs.
 
-# Version 0.8
+# Version 0.9
 
 ## This is helpful for if you modify this script and need help debugging.
 #echo $0 >> /tmp.txt
@@ -59,11 +59,13 @@ installpkg_location="${helper_packages_directory}/InstallPKG.pkg"
 # Path to the InstallPKG receipit
 if [ ${darwin_major_version} -ge 10 ] ; then
     # running 10.6 or later
-    installpkg_receipt="/var/db/receipts/org.lucidsysems.installpkg.plist"
+    installpkg_receipt="/var/db/receipts/org.lucidsystems.installpkg.plist"
 else
     # running 10.5 or earlier
     installpkg_receipt="/Library/Receipts/InstallPKG.pkg/"
 fi
+
+installpkg_default_osx_install_path="/sbin/installpkg"
 
 # Path to Uninstall InstallPKG script
 uninstall_installpkg_location="${helper_packages_directory}/InstallPKG-Uninstall.bash"
@@ -112,7 +114,7 @@ if [ "${additional_packages}" != "" ] ; then
     # There are some additional packags to install, lets get to it.
     
     # Check to see if InstallPKG is already installed
-    if [ -d "${installpkg_receipt}" ] ; then
+    if [ -f "${installpkg_default_osx_install_path}" ] ; then
         installpkg_installed="YES"
         installpkg_previously_insalled="YES"
     else
