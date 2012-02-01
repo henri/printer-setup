@@ -8,7 +8,7 @@
 # Converts a directory of apple installers into seperate disk image files, each contining one of the installers
 #
 
-# Version 1.3
+# Version 1.5
 # 
 # Version History
 # 1.0 : initial release
@@ -16,6 +16,7 @@
 # 1.2 : minor update to output reporting.
 # 1.3 : added the ability to overwrite images via an environment variable.
 # 1.4 : minor changes to the summary output.
+# 1.5 : minor changes to the summary output for consitancy with order of other summary scripts.
 
 # Configuration 
 
@@ -120,8 +121,8 @@ echo ""
 echo "Summary : (image creation)"
 echo "======================================================== "
 echo "Packages in directory processed for image creation : $packages_processed"
-echo "Packages skipped due to earlier image creation     : $num_images_skipped"
 echo "Packages processed into images successfully        : $images_created"
+echo "Packages skipped due to earlier image creation     : $num_images_skipped"
 echo "Packages with errors during creation :             : $image_creation_errors"
 echo ""
 echo ""
