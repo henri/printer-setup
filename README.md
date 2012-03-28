@@ -1,4 +1,4 @@
-# printersetup #
+# Printer Setup #
 
 PrinterSetup is an open source (GNU GPL) cups print queue management system.
 
