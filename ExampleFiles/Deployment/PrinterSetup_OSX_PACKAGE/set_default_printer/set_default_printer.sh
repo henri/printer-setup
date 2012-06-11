@@ -47,8 +47,8 @@ cd "${printer_setup_folder}"
 # Retrive the name_prefix (if any) from the "PrinterSetupPackage.sh" script and export this value
 path_to_printer_setup_package_script_from_root="./ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/PrinterSetupPackage.sh"
 path_to_printer_setup_script_from_root="./PrinterSetup.sh"
-export printer_name_prefix=`cat "${path_to_printer_setup_package_script_from_root}" | grep "package_queue_name_prefix=" | awk -F "package_queue_name_prefix=\"" '{print $2}' | awk -F "\"" '{print $1}'`
-export printer_name_prefix_delimiter=`cat "${path_to_printer_setup_script_from_root}" | grep "printer_name_prefix_delimiter=" | awk -F "printer_name_prefix_delimiter=\"" '{print $2}' | awk -F "\"" '{print $1}'`
+export printer_name_prefix=`cat "${path_to_printer_setup_package_script_from_root}" | sed 's/^[ \t]*//' | grep -v --regexp="^#" | grep "package_queue_name_prefix=" | awk -F "package_queue_name_prefix=\"" '{print $2}' | awk -F "\"" '{print $1}'`
+export printer_name_prefix_delimiter=`cat "${path_to_printer_setup_script_from_root}" | sed 's/^[ \t]*//' | grep -v --regexp="^#" | grep "printer_name_prefix_delimiter=" | awk -F "printer_name_prefix_delimiter=\"" '{print $2}' | awk -F "\"" '{print $1}'`
 if [ "${printer_name_prefix}" != "" ] ; then
 	export printer_prefixing="YES"
 fi
