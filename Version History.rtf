@@ -23,6 +23,11 @@
 				updates to more readily deployed when used in conjunction with Munki. Ground work for the potential ability to specify the 				package version and package identifier within the PSF / PLF has also been considered and could now be implemented in\
 				a future release.\
 \
+				Building upon the updated support in the build scripts, a new option has been added to OS X package build scripts. You\
+				may now specify an additional environment variable use_psf_or_plf_as_package_identifier="YES" to updated the version\
+				and identifier based upon the name of the PSF or PLF and the build time of the package. This further improves integration\
+				with Munki.\
+\
 \
 \pard\tx566\tx1133\tx1700\tx2267\tx2540\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li1900\ql\qnatural\pardirnatural
 
