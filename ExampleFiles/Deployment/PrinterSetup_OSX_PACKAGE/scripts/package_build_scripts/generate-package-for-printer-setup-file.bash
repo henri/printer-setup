@@ -14,7 +14,7 @@
 # This script will require PrinterSetup PrinterSetup_v0041 or later.
 #
 #
-# Version 1.3
+# Version 1.5
 # 
 # Version History 
 #   - 1.0 : initial release
@@ -22,6 +22,7 @@
 #   - 1.2 : added features to facilitate processing a directory via a wrapper script.
 #   - 1.3 : added features to facilitate building of the default queue setting packages.
 #   - 1.4 : bug fixes relating to overwirtting varible settings.
+#   - 1.5 : added support for package identifier and version to be based upon build time and the name of the PSF
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -38,6 +39,10 @@ default_display_warning_on_package_overwriting_for_each_pacakge="NO"
 
 # Leave this set to no, unless you want to build a package to set the defualt printer on a system rather than create the queue (YES/NO)
 default_build_default_printer_installers_not_printer_creation_installers="NO"
+
+# Leave this set to no, unless you want to build a package with the identifer set to the name of the PSF or PLF (YES/NO)
+default_use_psf_or_plf_as_package_identifier="NO"
+
 
 # Gather input arguments
 path_to_this_script="${0}"
@@ -66,6 +71,7 @@ default_PSF="${PrinterSetupLinks_Default_PSF_Directory_Path}/PSF-${room_number}-
 printer_setup_script="${printer_setup_root}/PrinterSetup.sh"
 printersetup_root_path_detction_string_for_printer_setup_files="/PrinterSetupFiles/"
 printersetup_printer_setup_files_realiitive_link_path="../PrinterSetupFiles/"
+build_version_based_upon_build_time=`date "+%s"`
 
 # Function(s)
 
@@ -142,6 +148,7 @@ if [ "${report_skipped_packages}" == "" ] ; then
     report_skipped_packages="${default_report_skipped_packages}"
 fi
 
+
 # Validate report_skipped_packages variable
 if [ "${report_skipped_packages}" != "YES" ] && [ "${report_skipped_packages}" != "NO" ] ; then
     echo "     ERROR! : The report_skipped_packages variable is not valid. It must be set to \"YES\" or \"NO\"."
@@ -181,6 +188,26 @@ if [ "${build_default_printer_installers_not_printer_creation_installers}" != "Y
     echo "              The env command will typically provide a list of environment variables"
     echo "              The default option is \"NO\" ; as to not overwrite existing packages."
     exit -1
+fi
+
+
+# If this is not overridden then leave it alone
+if [ "${use_psf_or_plf_as_package_identifier}" == "" ] ; then
+    # validate the current setting 
+    use_psf_or_plf_as_package_identifier="${default_use_psf_or_plf_as_package_identifier}"
+fi
+
+# Valadate that there is a build version based upon time specified if we are using the psf or plf as the package identifer during the build.
+if [ "${use_psf_or_plf_as_package_identifier}" == "YES" ] ; then
+	if [ "$build_version_based_upon_build_time" != "" ] ; then
+		if [ "`echo "${build_version_based_upon_build_time}" | tr -d '[:digit:]'`" ] ; then
+			echo "    ERROR! : Build version based upon time is not set correctly."
+			exit -1
+		fi
+	else
+		echo "    ERROR! : Build version based upon time is not set correctly."
+		exit -1
+	fi
 fi
 
 # Report that files will be overwritten
@@ -266,10 +293,27 @@ if [ "${build_default_printer_installers_not_printer_creation_installers}" == "N
 
 	# Create the package
 	
-	"${buildscript}" "${package_maker_document}" "${output_package}"
+	if [ "${use_psf_or_plf_as_package_identifier}" == "NO" ] ; then
+		# use the build script to determin the build version and package identifer
+		"${buildscript}" "${package_maker_document}" "${output_package}"
+		build_status=$?
+	else
+		# calculate package identifer based upon PSF name
+		
+		# specify prefix and suffex for the package identifier
+		package_identifier_prefix="org.lucidsystems.printersetup.psf"
+		package_identifier_suffix="pkg"
+		# remove or replace various characters from the psf name for use in the package identifier
+		stripped_psf_name=`echo "${psf_name}" | tr " " "_" | tr "-" "_"`
+		# construct a package identifier
+		package_identifier="${package_identifier_prefix}.${stripped_psf_name}.${package_identifier_suffix}"
+		
+		#build the package
+		"${buildscript}" "${package_maker_document}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
+		build_status=$?
+	fi
 
-
-	if [ $? != 0 ] ; then
+	if [ ${build_status} != 0 ] ; then
 		remove_tmporary_link
 		echo "    ERROR! Building Package. Package building canceled."
 		exit -1
@@ -311,13 +355,30 @@ else
 	
 
 	# Create the package
-	
-	"${buildscript}" "${package_maker_document}" "${output_package}"
+	if [ "${use_psf_or_plf_as_package_identifier}" == "NO" ] ; then
+		# use the build script to determin the build version and package identifer
+		"${buildscript}" "${package_maker_document}" "${output_package}"
+		build_status=$?
+	else
+		# calculate package identifer based upon PSF name
+		
+		# specify prefix and suffex for the package identifier
+		package_identifier_prefix="org.lucidsystems.printersetup.psf"
+		package_identifier_suffix="defaultprinter.pkg"
+		# remove or replace various characters from the psf name for use in the package identifier
+		stripped_psf_name=`echo "${psf_name}" | tr " " "_" | tr "-" "_"`
+		# construct a package identifier
+		package_identifier="${package_identifier_prefix}.${stripped_psf_name}.${package_identifier_suffix}"
+		
+		#build the package
+		"${buildscript}" "${package_maker_document}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
+		build_status=$?
+	fi
 
 
-	if [ $? != 0 ] ; then
+	if [ ${build_status} != 0 ] ; then
 		remove_default_psf
-		echo "    ERROR! Building Package. Package building canceled."
+		echo "    ERROR! Building Default Package. Package building canceled."
 		exit -1
 	else
 		remove_default_psf

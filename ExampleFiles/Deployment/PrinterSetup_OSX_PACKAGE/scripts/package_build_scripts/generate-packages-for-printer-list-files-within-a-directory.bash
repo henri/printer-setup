@@ -35,6 +35,8 @@ default_display_warning_on_package_overwriting_for_each_pacakge="NO"
 # Leave this alone unless you would not like a warning when you are overwritting packages
 default_display_warning_on_package_overwirting_for_processing_of_plfs_within_directory="YES"
 
+# Leave this set to no, unless you want to build a package with the identifer set to the name of the PSF or PLF (YES/NO)
+default_use_psf_or_plf_as_package_identifier="NO"
 
 # Note : There are various reasons for not using 'shift' in order to process multiple files passed in from the command line.
 
@@ -219,6 +221,22 @@ if [ "${overwrite_existing_packages}" == "YES" ] && [ "${display_warning_on_pack
     sleep 3
 fi
 
+# If this is not overridden then leave it alone
+if [ "${use_psf_or_plf_as_package_identifier}" == "" ] ; then
+    # validate the current setting 
+    use_psf_or_plf_as_package_identifier="${default_use_psf_or_plf_as_package_identifier}"
+fi
+export use_psf_or_plf_as_package_identifier
+
+# Validate use_psf_or_plf_as_package_identifier variable
+if [ "${use_psf_or_plf_as_package_identifier}" != "YES" ] && [ "${use_psf_or_plf_as_package_identifier}" != "NO" ] ; then
+    echo "     ERROR! : The use_psf_or_plf_as_package_identifier variable is not valid. It must be set to \"YES\" or \"NO\"."
+    echo "              Please check your shell is clean or that this shell variable is exported as a valid option."
+    echo "              The env command will typically provide a list of environment variables."
+    echo "              The default option is \"NO\" ; as to not specify a custom package identifier"
+    echo "              based on the name of a PSF or PLF."
+    exit -1
+fi
 
 # check input directory for any .pkg files. If.pkg files are found then exit as this may not be the correct input directory.
 if [ "${allow_pkg_files_within_input_directory}" == "NO" ] ; then

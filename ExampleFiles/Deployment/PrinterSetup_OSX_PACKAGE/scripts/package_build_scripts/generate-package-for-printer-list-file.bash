@@ -17,6 +17,7 @@
 # Version History 
 #   - 1.0 : initial release.
 #   - 1.1 : various bug fix relating to printer list files being processed.
+#   - 1.2 : added support for package identifier and version to be based upon build time and the name of the PLF
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -30,6 +31,9 @@ default_report_skipped_packages="YES"
 
 # Leave this set to no, unless you want to report that a package was overwritten (YES/NO)
 default_display_warning_on_package_overwriting_for_each_pacakge="NO"
+
+# Leave this set to no, unless you want to build a package with the identifer set to the name of the PSF or PLF (YES/NO)
+default_use_psf_or_plf_as_package_identifier="NO"
 
 # Gather input arguments
 path_to_this_script="${0}"
@@ -56,6 +60,7 @@ setupPrinter="${PrinterSetupLinks_Path}/${setupPrinter_link_name}"
 printer_setup_script="${printer_setup_root}/PrinterSetup.sh"
 printersetup_root_path_detction_string_for_printer_list_files="/PrinterLists/"
 printersetup_printer_list_files_realiitive_link_path="../PrinterLists/"
+build_version_based_upon_build_time=`date "+%s"`
 
 # Function(s)
 
@@ -134,6 +139,26 @@ fi
 if [ "${display_warning_on_package_overwriting_for_each_pacakge}" == "" ] ; then
     # validate the current setting 
     display_warning_on_package_overwriting_for_each_pacakge="${default_display_warning_on_package_overwriting_for_each_pacakge}"
+fi
+
+# If this is not overridden then leave it alone
+if [ "${use_psf_or_plf_as_package_identifier}" == "" ] ; then
+    # validate the current setting 
+    use_psf_or_plf_as_package_identifier="${default_use_psf_or_plf_as_package_identifier}"
+fi
+
+
+# Valadate that there is a build version based upon time specified if we are using the psf or plf as the package identifer during the build.
+if [ "${use_psf_or_plf_as_package_identifier}" == "YES" ] ; 
+	if [ "$build_version_based_upon_build_time" != "" ] ; then
+		if [ "`echo "${build_version_based_upon_build_time}" | tr -d '[:digit:]'`" ] ; then
+			echo "    ERROR! : Build version based upon time is not set correctly."
+			exit -1
+		fi
+	else
+		echo "    ERROR! : Build version based upon time is not set correctly."
+		exit -1
+	fi
 fi
 
 # Validate report_skipped_packages variable
@@ -226,10 +251,29 @@ fi
 
 # Create the package
 
-"${buildscript}" "${package_maker_document}" "${output_package}"
+if [ "${use_psf_or_plf_as_package_identifier}" == "NO" ] ; then
+	# use the build script to determin the build version and package identifer
+	"${buildscript}" "${package_maker_document}" "${output_package}"
+	build_status=$?
+else
+	# calculate package identifer based upon PSF name
+	
+	# specify prefix and suffix for the package identifier
+	package_identifier_prefix="org.lucidsystems.printersetup.plf"
+	package_identifier_suffix="pkg"
+	# remove or replace various characters from the plf name for use in the package identifier
+	stripped_psf_name=`echo "${psf_name}" | tr " " "_" | tr "-" "_"`
+	# construct a package identifier
+	package_identifier="${package_identifier_prefix}.${stripped_psf_name}.${package_identifier_suffix}"
+	
+	#build the package
+	"${buildscript}" "${package_maker_document}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
+	build_status=$?
+fi
 
 
-if [ $? != 0 ] ; then
+
+if [ ${build_status} != 0 ] ; then
 	remove_tmporary_link
 	echo "    ERROR! : Building Package. Package building canceled."
 	exit -1
