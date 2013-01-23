@@ -5,10 +5,11 @@
 # Licence GNU GPL
 # http://www.lucidsystems.org
 #
-# version 3.0
+# version 3.1
 #
 
 packagemaker="/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker"
+packagemaker_mlion_and_later="/Applications/PackageMaker.app/Contents/MacOS/PackageMaker"
 package_identifier_default="org.lucidsystems.printersetup.printers.pkg"
 
 num_arguments=$#
@@ -18,6 +19,13 @@ build_dest="${2}"
 
 passed_in_package_version="${3}"
 passed_in_package_identifier="${4}"
+
+# find the version of darwin we are running
+darwin_version=`uname -r | awk -F "." '{ print $1 }'`
+if [ $darwin_version -ge 12 ] ; then
+	# use the newer (10.8 and later location for package maker tools
+	packagemaker="${packagemaker_mlion_and_later}"
+fi
 
 # build the package using the appropriate arguments as supplied. Different versions / uses of printer setup may supply different numbers of arguments. 
 if [ "${passed_in_package_identifier}" != "" ] && [ "${passed_in_package_version}" != "" ] && [ $num_arguments -eq 4 ] ; then
