@@ -30,11 +30,12 @@
 ##       Refer to these examples when building your own.
 ##
 
-# Version 00022
+# Version 00023
 
 # HISTORY
 #
 #
+# Version 0023 : added additional logging for removal of print queues.
 # Version 0022 : added an slightly improved feed back when there is no nvram specified.
 # Version 0021 : added in export of the paper size search keys - consider adding 
 #                in paper size options.
@@ -1215,8 +1216,13 @@ if [ "${system_status}" == "ON" ] ; then
                 if [ "${temp_errors_while_runnnig_temp_scripts}" == "NO" ] ; then
                     # Delete the appropriate disabled queues if the script is availible and executable.
                     if [ -f "${printer_setup_queuemanagment_remove_disabled_queues_with_prefix_script}" -a -x "${printer_setup_queuemanagment_remove_disabled_queues_with_prefix_script}" ] ; then
-                        echo "    Removing Unused Queues With Name Starting With Supplied Queue Name Prefix..." | tee -ai "$printer_setup_log"
+                        echo "    Removing unused queues with name starting with supplied queue name prefix..." | tee -ai "$printer_setup_log"
                         "${printer_setup_queuemanagment_remove_disabled_queues_with_prefix_script}"
+						if [ $? == 0 ] ; then
+							echo "    Unused queues succesfully removed." >> "$printer_setup_log"
+						else
+							echo "    ERROR! : Problems were encountered during unused queue removal." | tee -ai "$printer_setup_log"
+						fi
                     else
                         echo "    ERROR! : Unable to find the script to remove unused queues." | tee -ai "$printer_setup_log"
                         echo "             Skipping queue deletion." | tee -ai "$printer_setup_log"
