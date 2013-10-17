@@ -8,7 +8,7 @@ To get started drop some PSF onto this script and then when prompted specify you
 
 Good Luck, if you make this more useable, please submit patches back to http://www.lucidsystems.org
 
-For screen casts and other information visit the following URL : http://www.lucidsystems.org/printingworks/printersetup/
+For screen casts and other information visit the following URL : http://www.lucidsystems.tk/printingworks/printersetup/
 
 The PrinterSetup Team.
 
