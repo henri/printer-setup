@@ -11,6 +11,8 @@
       The PrinterSetup package, available from the PrintingWorks
         website is the official version. The official version of
           PrinterSetup is released entirely under the GNU GPL.
+		  
+	   http://www.lucidsystems.tk/tools/printingworks/printersetup/
 
   --------------------------------------------------------------------
 
