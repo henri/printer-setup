@@ -19,6 +19,6 @@ if [ $currentUser != "root" ] ; then
 	exit -127
 fi
 
-/usr/sbin/dseditgroup -o edit -a everyone -t group lpoperator
+/usr/sbin/dseditgroup -o edit -a everyone -t group _lpoperator
 exit $?
 

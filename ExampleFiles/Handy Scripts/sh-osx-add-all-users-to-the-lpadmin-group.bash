@@ -20,6 +20,6 @@ if [ $currentUser != "root" ] ; then
 	exit -127
 fi
 
-/usr/sbin/dseditgroup -o edit -a everyone -t group lpadmin
+/usr/sbin/dseditgroup -o edit -a everyone -t group _lpadmin
 exit $?
 
