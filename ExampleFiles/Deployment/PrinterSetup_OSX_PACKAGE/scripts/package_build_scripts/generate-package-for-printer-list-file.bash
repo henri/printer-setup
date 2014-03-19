@@ -18,6 +18,7 @@
 #   - 1.0 : initial release.
 #   - 1.1 : various bug fix relating to printer list files being processed.
 #   - 1.2 : added support for package identifier and version to be based upon build time and the name of the PLF
+#   - 1.3 : resolved bug relating to paths not being switched back for ralitive builds.
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -61,6 +62,7 @@ printer_setup_script="${printer_setup_root}/PrinterSetup.sh"
 printersetup_root_path_detction_string_for_printer_list_files="/PrinterLists/"
 printersetup_printer_list_files_realiitive_link_path="../PrinterLists/"
 build_version_based_upon_build_time=`date "+%s"`
+initial_path="`pwd`"
 
 # Function(s)
 
@@ -245,6 +247,13 @@ fi
 ln -s "${printer_setup_realitive_link}" "./${setupPrinter_link_name}"
 if [ $? != 0 ] ; then
 	echo "    ERROR!: Unable to create the relative PLF package link."
+	exit -1
+fi
+
+# Change back to initial direcotry
+cd "${initial_path}"
+if [ $? != 0 ] ; then
+	echo "    ERROR!: Unable to switch back to initial path within script ${0}."
 	exit -1
 fi
 

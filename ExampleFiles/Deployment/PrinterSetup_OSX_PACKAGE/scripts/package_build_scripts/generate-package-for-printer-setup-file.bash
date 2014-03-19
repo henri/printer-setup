@@ -23,6 +23,7 @@
 #   - 1.3 : added features to facilitate building of the default queue setting packages.
 #   - 1.4 : bug fixes relating to overwirtting varible settings.
 #   - 1.5 : added support for package identifier and version to be based upon build time and the name of the PSF
+#   - 1.6 : resolved bug relating to paths not being switched back for ralitive builds.
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -72,6 +73,7 @@ printer_setup_script="${printer_setup_root}/PrinterSetup.sh"
 printersetup_root_path_detction_string_for_printer_setup_files="/PrinterSetupFiles/"
 printersetup_printer_setup_files_realiitive_link_path="../PrinterSetupFiles/"
 build_version_based_upon_build_time=`date "+%s"`
+initial_path="`pwd`"
 
 # Function(s)
 
@@ -290,6 +292,12 @@ if [ "${build_default_printer_installers_not_printer_creation_installers}" == "N
 		exit -1
 	fi
 	
+	# Change back to initial direcotry
+	cd "${initial_path}"
+	if [ $? != 0 ] ; then
+		echo "    ERROR!: Unable to switch back to initial path within script ${0}."
+		exit -1
+	fi
 
 	# Create the package
 	
