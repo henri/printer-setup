@@ -8,7 +8,7 @@ Printer setup allows you to define "Printer Setup Files". Each PSF, defines the 
   - [PrinterSetup screen casts][2].
   - [PrinterSetup presentation][3].
   - [PrinterSetup discussion mailing list][4].
-  - [PrinterSetup system overview][5].
+
   
 Comments and suggestions regarding the PrinterSetup project are welcomed.
 
