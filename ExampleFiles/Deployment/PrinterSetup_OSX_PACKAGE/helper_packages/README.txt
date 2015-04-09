@@ -7,9 +7,9 @@ The Helper package directory is used to store scripts and installers which may b
 
 Example 1 :
 =========== 
-If you download InstallPKG from http://www.lucidsystems.org and place the InstallPKG.pkg bundle within this directory. Then then this utility will be installed, and then used to install other packages placed into the "additional_packages" directory.
+If you download InstallPKG and place the InstallPKG.pkg bundle within this directory. Then then this utility will be installed, and then used to install other packages placed into the "additional_packages" directory.
 
-Source code and built packages for InstallPKG are available from the following URL : http://www.lucidsystems.tk/tools/installpkg
+Source code and built packages for InstallPKG are available from the following URL : http://www.lucid.technology/tools/installpkg
 
 In addition you may place the InstallPKG-Uninstall uninstall script into this folder, to uninstall the InstallPKG package once it has completed its job.
 
