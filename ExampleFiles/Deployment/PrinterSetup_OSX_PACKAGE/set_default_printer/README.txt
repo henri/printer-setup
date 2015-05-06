@@ -12,6 +12,9 @@ This system is very basic and is only really aimed (or should be used) for peopl
 
 This entire feature may be removed from PrinterSetup in the future. It is essentially, a feature request.
 
+If you require more advanced default printer settings, the following URL provides excellent information : 
+https://wiki.afp548.com/index.php/Setting_a_Default_Printer
+
 We look forward to your feed back so we can continue to improve this system.
 
 Kind regards,
