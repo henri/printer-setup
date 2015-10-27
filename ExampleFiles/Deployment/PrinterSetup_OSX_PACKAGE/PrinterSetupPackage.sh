@@ -65,7 +65,7 @@ else
     installpkg_receipt="/Library/Receipts/InstallPKG.pkg/"
 fi
 
-installpkg_default_osx_install_path="/sbin/installpkg"
+installpkg_default_osx_install_path="/usr/local/bin/installpkg"
 
 # Path to Uninstall InstallPKG script
 uninstall_installpkg_location="${helper_packages_directory}/InstallPKG-Uninstall.bash"
@@ -119,7 +119,7 @@ if [ "${additional_packages}" != "" ] ; then
         installpkg_previously_insalled="YES"
     else
         # Install the InstallPKG tool if it is availible
-        # InstallPKG is a wrapper to the Apple installer command. It is usd to install the other packckages.
+        # InstallPKG is a wrapper to the Apple installer command. It is used to install the other packckages.
         if [ -d "${installpkg_location}" ] ; then
             # Instll InstallPKG onto the root directory
             logger -s -t PrinterSetupOSXPackage -p user.info "Installing package helper : InstallPKG"
