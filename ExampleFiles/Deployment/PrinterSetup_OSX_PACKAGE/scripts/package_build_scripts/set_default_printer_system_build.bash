@@ -5,7 +5,7 @@
 # Licence GNU GPL
 # http://www.lucidsystems.org
 #
-# version 3.1
+# version 3.2
 
 packagemaker="/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker"
 packagemaker_mlion_and_later="/Applications/PackageMaker.app/Contents/MacOS/PackageMaker"
