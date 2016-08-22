@@ -25,6 +25,8 @@
 	<string>droplet</string>
 	<key>CFBundleIconFile</key>
 	<string>droplet</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.ScriptEditor.id.D434458E-B764-456C-896C-341CB5F6BAB4</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -37,12 +39,16 @@
 	<true/>
 	<key>WindowState</key>
 	<dict>
+		<key>dividerCollapsed</key>
+		<false/>
+		<key>eventLogLevel</key>
+		<integer>-1</integer>
 		<key>name</key>
 		<string>ScriptWindowState</string>
 		<key>positionOfDivider</key>
 		<real>478</real>
 		<key>savedFrame</key>
-		<string>410 210 1044 655 0 0 1680 1028 </string>
+		<string>152 110 1044 655 0 0 1280 778 </string>
 		<key>selectedTabView</key>
 		<string>description</string>
 	</dict>
