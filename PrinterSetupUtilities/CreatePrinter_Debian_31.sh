@@ -18,7 +18,7 @@
 ##       to setup a printer for Debian 3.1.x
 ##
 
-# Version 00013
+# Version 00014
 # Requires Printer Setup Version 0044 or later
 
 
@@ -73,6 +73,7 @@ printer_is_raw=""
 default_printer_ppd_loc[0]="/usr/share/ppd/Generic/Generic-PostScript_Printer-Postscript.ppd.gz"
 default_printer_ppd_loc[1]="/usr/share/ppd/cups-included/postscript.ppd"
 default_printer_ppd_loc[2]="/usr/share/ppd/foomatic-rip/linuxprinting.org-gs-builtin/Generic/Generic-PostScript_Printer-Postscript.ppd.gz"
+default_printer_ppd_loc[3]="/usr/share/ppd/cupsfilters/Generic-PDF_Printer-PDF.ppd"
 
 # Scan the search paths listed above looking for one which exits. 
 default_ppd_array_num=0
