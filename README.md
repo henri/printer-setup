@@ -1,6 +1,8 @@
 # Printer Setup #
 
-PrinterSetup is an open source (GNU GPL) cups print queue management system.
+PrinterSetup is an open source (GNU GPL) cups print queue management system. 
+
+Excellent for CUPS Print queue deployment on BYOD / Lab / Servers and more.
 
 Printer setup allows you to define "Printer Setup Files". Each PSF, defines the configuration of a CUPS print queue. You also have the ability to define "Printer List Files". A PLF contains a list of printers, to be setup.
 
