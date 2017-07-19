@@ -151,7 +151,7 @@ fi
 
 
 # Valadate that there is a build version based upon time specified if we are using the psf or plf as the package identifer during the build.
-if [ "${use_psf_or_plf_as_package_identifier}" == "YES" ] ; 
+if [ "${use_psf_or_plf_as_package_identifier}" == "YES" ] ; then
 	if [ "$build_version_based_upon_build_time" != "" ] ; then
 		if [ "`echo "${build_version_based_upon_build_time}" | tr -d '[:digit:]'`" ] ; then
 			echo "    ERROR! : Build version based upon time is not set correctly."
