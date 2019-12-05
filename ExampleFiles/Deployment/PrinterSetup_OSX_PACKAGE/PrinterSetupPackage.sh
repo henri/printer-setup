@@ -8,7 +8,7 @@
 # This script is the script which is run when you build a package.
 # Simply change this as required for your needs.
 
-# Version 0.9
+# Version 1.0
 
 ## This is helpful for if you modify this script and need help debugging.
 #echo $0 >> /tmp.txt
@@ -137,11 +137,14 @@ if [ "${additional_packages}" != "" ] ; then
     # Use InstallPKG to install the additional packages
     if [ "${installpkg_installed}" == "YES" ] ; then
         logger -s -t PrinterSetupOSXPackage -p user.info "Installing additional packages..."
-        installpkg ${additional_packags_directory}/*
+		export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+		installpkg ${additional_packags_directory}/*
         if [ $? != 0 ] ; then
             # Version 0.0.5 of InstallPGK will not report errors during the installation. Hopefully a newer version will, lets get ready for that now.
             logger -s -t PrinterSetupOSXPackage -p user.error "ERROR! : during additional packages installation."
         fi
+		sleep 5
+		sync
     fi
     
     # Uninsitall InstallPKG if the uninstall script is availible and it was not installed before we started.
