@@ -24,6 +24,7 @@
 #   - 1.4 : bug fixes relating to overwirtting varible settings.
 #   - 1.5 : added support for package identifier and version to be based upon build time and the name of the PSF
 #   - 1.6 : resolved bug relating to paths not being switched back for ralitive builds.
+#   - 1.7 2020 build script enabled
 
 # Notes : Perhaps a using an option flag is a better approach for enabling overwriting of packages?
 
@@ -60,8 +61,8 @@ parent_folder="`dirname \"${path_to_this_script}\"`"
 path_from_root="/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts"
 printer_setup_root="`echo \"${parent_folder}\"| awk -F \"${path_from_root}\" '{ print $1 }'`"
 room_number="OSXPACKAGE"
-buildscript_create_package="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts/printer_setup_build.bash"
-buildscript_default_package="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts/set_default_printer_system_build.bash"
+buildscript_create_package="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts/printer_setup_build_2020.bash"
+buildscript_default_package="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/scripts/package_build_scripts/set_default_printer_system_build_2020.bash"
 package_maker_document_create_pacakge="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/PrinterSetup.pmdoc"
 package_maker_document_default_pacakge="${printer_setup_root}/ExampleFiles/Deployment/PrinterSetup_OSX_PACKAGE/set_default_printer/set_default_printer.pmdoc"
 PrinterSetupLinks_Path="${printer_setup_root}/PrinterSetupLinks"
@@ -303,7 +304,11 @@ if [ "${build_default_printer_installers_not_printer_creation_installers}" == "N
 	
 	if [ "${use_psf_or_plf_as_package_identifier}" == "NO" ] ; then
 		# use the build script to determin the build version and package identifer
-		"${buildscript}" "${package_maker_document}" "${output_package}"
+
+		# Pre-2020-Build
+		#"${buildscript}" "${package_maker_document}" "${output_package}"
+		# Post 2020 Build
+		"${buildscript}" "${output_package}"
 		build_status=$?
 	else
 		# calculate package identifer based upon PSF name
@@ -317,7 +322,9 @@ if [ "${build_default_printer_installers_not_printer_creation_installers}" == "N
 		package_identifier="${package_identifier_prefix}.${stripped_psf_name}.${package_identifier_suffix}"
 		
 		#build the package
-		"${buildscript}" "${package_maker_document}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
+		# Pre-2020-Build
+		#"${buildscript}" "${package_maker_document}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
+		"${buildscript}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
 		build_status=$?
 	fi
 
@@ -365,7 +372,10 @@ else
 	# Create the package
 	if [ "${use_psf_or_plf_as_package_identifier}" == "NO" ] ; then
 		# use the build script to determin the build version and package identifer
-		"${buildscript}" "${package_maker_document}" "${output_package}"
+		# Pre 2020 
+		#"${buildscript}" "${package_maker_document}" "${output_package}"
+		# Post 2020
+		"${buildscript}" "${output_package}"
 		build_status=$?
 	else
 		# calculate package identifer based upon PSF name
@@ -379,7 +389,10 @@ else
 		package_identifier="${package_identifier_prefix}.${stripped_psf_name}.${package_identifier_suffix}"
 		
 		#build the package
-		"${buildscript}" "${package_maker_document}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
+		# Pre 2020 
+		#"${buildscript}" "${package_maker_document}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
+		# Post 2020
+		"${buildscript}" "${output_package}" "${build_version_based_upon_build_time}" "${package_identifier}"
 		build_status=$?
 	fi
 
