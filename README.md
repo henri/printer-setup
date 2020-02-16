@@ -21,3 +21,5 @@ Comments and suggestions regarding the PrinterSetup project are welcomed.
 [3]: http://www.lucidsystems.tk/download/printersetup/presentation/
 [4]: http://www.lucidsystems.tk/tools/printingworks/printersetup/lists/discuss/
 [5]: http://www.lucidsystems.tk/tools/printingworks/printersetup/SystemOverview.png
+
+Additional documentation and tutorials are welcome, particularly those which cover intergratation of PrinterSetup with different deployment and direcotry management systems. It is also nice to hear stories of how you are using PrinterSetup for managing your print queues.
