@@ -30,11 +30,12 @@
 ##       Refer to these examples when building your own.
 ##
 
-# Version 00023
+# Version 00024
 
 # HISTORY
 #
 #
+# Version 0024 : temp PPD directory creation if needed now with varible change
 # Version 0023 : added additional logging for removal of print queues.
 # Version 0022 : added an slightly improved feed back when there is no nvram specified.
 # Version 0021 : added in export of the paper size search keys - consider adding 
@@ -88,6 +89,7 @@ PRINTERSETUP_STOP=55
 assetName=""
 room_name=""
 current_printer_list_file=""
+use_temp_ppds="NO"
 
 
 
@@ -209,6 +211,8 @@ temp_details_symbolic_links_directory_name="active_psf_links"
 printerPSF_for_temp_link=""
 temp_link_printerPSF=""
 temp_errors_while_runnnig_temp_scripts="NO"
+
+temp_ppd_dir_name="PPDs"
 
 
 
@@ -525,6 +529,8 @@ function setup_required_temporary_directory_structure {
     temp_all_system_queue_names_with_prefix_file="${temp_details_directory}/${temp_all_system_queue_names_with_prefix_file_name}"
     temp_all_system_queue_names_with_prefixt_but_not_enabled_file="${temp_details_directory}/${temp_all_system_queue_names_with_prefixt_but_not_enabled_file_name}"
     
+	temp_ppds_dir="${tmp_printersetup_directory}/${temp_ppd_dir_name}"
+	
     # This is exported here because this will not exit until it is configured. Makes more sense.
     export temp_details_symbolic_links_directory
 
@@ -550,6 +556,7 @@ function setup_required_temporary_directory_structure {
     export temp_psf_dump_details_script
     export temp_append_psf_details_to_file_script
     
+    export temp_ppds_dir
     
     # Genrate the Required Directory Structure Within the Temporary Directory
     mkdir "${temp_details_directory}"
@@ -561,6 +568,22 @@ function setup_required_temporary_directory_structure {
         return -3
     fi
     
+    # Use temp PPD folder (can be useful for debugging PPD 
+    # pre-hook script changes)
+    if [ "${use_temp_ppds}" == "YES" ] ; then
+        # Copy those PPDs 
+        mkdir "${temp_ppds_dir}"
+        if [ $? != 0 ] ; then
+            return -4
+        fi
+        cp -r "${printer_ppd_folder}/" "${temp_ppds_dir}"
+        if [ $? != 0 ] ; then
+            return -5
+        else
+            printer_ppd_folder="${temp_ppds_dir}"
+            export printer_ppd_folder
+        fi
+    fi
 }
 
 
