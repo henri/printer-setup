@@ -11,7 +11,7 @@ Printer setup allows you to define "Printer Setup Files". Each PSF, defines the 
   - [Download][1] the latest build version (.zip). 
   - [PrinterSetup screen casts][2].
   - [PrinterSetup presentation][3].
-  - [PrinterSetup discussion mailing list][4].
+  - [PrinterSetup discussion mailing list][4]. (This is now an archive)
 
   
 Comments and suggestions regarding the PrinterSetup project are welcomed.
